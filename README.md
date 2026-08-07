@@ -17,10 +17,53 @@ To investigate whether hybrid quantum-classical machine learning (QA-PINN) can a
 - **Multi-dimensional Support**: Supports 1D line, 2D square, and 3D cube heat conduction simulations.
 
 ## Project Architecture
-- **`config/`**: Global YAML configurations for datasets and hyperparameters.
-- **`data_generator/`**: CFD dataset generator utilizing FDM to produce physically valid heat transfer simulations.
-- **`data/`**: Generated CFD datasets serving as validation data.
-- **`src/`**: Core implementations of solvers (Analytical, CFD, PINN, QA-PINN), PDE definitions, and evaluation metrics.
+
+Below is a visual representation of the end-to-end benchmarking pipeline and data flow:
+
+```mermaid
+graph TD
+    %% Configuration & Input
+    Config[config/ YAML] --> |Hyperparameters| Runner[run_experiment.py]
+    Config --> |Generation Specs| DataGen[data_generator/]
+
+    %% Dataset Pipeline
+    DataGen -->|Solves FDM| Dataset[(data/ CFD Datasets)]
+    Materials[(Material Database)] --> DataGen
+
+    %% Main Benchmark Runner
+    Dataset --> |Loads Validation Data| Runner
+
+    %% Solvers/Models
+    Runner --> |Instantiates & Trains| CoreLib[src/ Core Library]
+    
+    subgraph Solvers [Benchmark Models]
+        Analytical[Analytical Solution]
+        CFD[Classical CFD Solver]
+        PINN[Physics-Informed NN]
+        QAPINN[Quantum-Assisted PINN]
+    end
+    
+    CoreLib -.-> Solvers
+    
+    %% Evaluation
+    Solvers --> |Produces Predictions| Evaluator[Metrics & Reporting]
+    
+    %% Outputs
+    Evaluator --> |Saves to| Outputs[outputs/]
+    
+    subgraph Artifacts [Generated Artifacts]
+        Dashboards[Visual Dashboards]
+        Reports[Final_Report.txt]
+        Metrics[Performance Metrics]
+    end
+    Outputs -.-> Artifacts
+```
+
+### Module Breakdown
+- **`config/`**: Global YAML configurations for datasets and model hyperparameters.
+- **`data_generator/`**: CFD dataset generator utilizing implicit Finite Difference Methods (FDM) to produce physically valid heat transfer simulations.
+- **`data/`**: Immutable, generated CFD datasets serving as validation data for the machine learning models.
+- **`src/`**: Core implementations of solvers (Analytical, CFD, PINN, QA-PINN), PDE definitions (1D, 2D, 3D), and evaluation metrics.
 - **`outputs/`**: Generated evaluation results, comparison dashboards, error heatmaps, and final technical reports.
 - **`run_experiment.py`**: The main benchmark pipeline orchestrator.
 - **`generate_dataset.py`**: The entry point for building custom CFD datasets.
