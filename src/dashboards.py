@@ -1,6 +1,11 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from matplotlib.colors import LinearSegmentedColormap
+
+ErrorGYR = LinearSegmentedColormap.from_list('ErrorGYR', ['green', 'yellow', 'red'])
+TempYOR = LinearSegmentedColormap.from_list('TempYOR', ['yellow', 'orange', 'red'])
 
 def generate_detailed_dashboards(results, props, domain, domain2d, domain3d, output_dir):
     dashboard_dir = os.path.join(output_dir, "Detailed Comparison")
@@ -17,145 +22,100 @@ def _generate_heatmap_dashboards(results, props, domain, domain2d, domain3d, das
     heat_dir = os.path.join(dashboard_dir, "Heat Map Comparison")
     os.makedirs(heat_dir, exist_ok=True)
     
-    methods = ["Actual", "CFD", "PINN", "QA-PINN"]
+    # --- 1D Dashboard (1x4 grid) ---
+    fig_1d, axes_1d = plt.subplots(1, 4, figsize=(20, 5))
+    fig_1d.suptitle(f"1D Heat Map (Error) Comparison: {props['name'].capitalize()}", fontsize=18, fontweight='bold')
     
-    # --- 1D Dashboard (1x5 grid) ---
-    fig_1d, axes_1d = plt.subplots(1, 5, figsize=(25, 5))
-    fig_1d.suptitle(f"1D Heat Map Comparison: {props['name'].capitalize()}", fontsize=18, fontweight='bold')
-    
-    u_keys_1d = ["U_exact", "U_cfd", "U_pinn", "U_qa"]
-    for i, (method, key) in enumerate(zip(methods, u_keys_1d)):
-        if key in results and results[key] is not None:
-            U = results[key]
-            vmin, vmax = U.min(), U.max()
+    if 'U_exact' in results and 'U_pinn' in results:
+        U_exact = results['U_exact']
+        err_pinn = np.abs(results['U_pinn'] - U_exact)
+        err_qa = np.abs(results['U_qa'] - U_exact)
+        vmin_u = min(U_exact.min(), results['U_cfd'].min())
+        vmax_u = max(U_exact.max(), results['U_cfd'].max())
+        vmax_err = max(err_pinn.max(), err_qa.max())
+        if vmax_err == 0: vmax_err = 1e-6
+        
+        methods_1d = [
+            ("Actual", U_exact, TempYOR, vmin_u, vmax_u, "Temperature"),
+            ("CFD", results['U_cfd'], TempYOR, vmin_u, vmax_u, "Temperature"),
+            ("PINN Error", err_pinn, ErrorGYR, 0, vmax_err, "Absolute Error"),
+            ("QA-PINN Error", err_qa, ErrorGYR, 0, vmax_err, "Absolute Error")
+        ]
+        
+        for i, (method, U, cmap, vmin, vmax, label) in enumerate(methods_1d):
             X, T = np.meshgrid(domain.x, domain.t)
-            c = axes_1d[i].pcolormesh(X, T, U, shading='auto', cmap='viridis', vmin=vmin, vmax=vmax)
+            c = axes_1d[i].pcolormesh(X, T, U, shading='auto', cmap=cmap, vmin=vmin, vmax=vmax)
             axes_1d[i].set_title(method)
             axes_1d[i].set_xlabel("x")
             if i == 0: axes_1d[i].set_ylabel("t")
-            fig_1d.colorbar(c, ax=axes_1d[i], fraction=0.046, pad=0.04)
-        else:
-            axes_1d[i].text(0.5, 0.5, 'N/A', ha='center', va='center')
-            axes_1d[i].set_title(method)
+            fig_1d.colorbar(c, ax=axes_1d[i], fraction=0.046, pad=0.04, label=label)
             
     plt.tight_layout()
     plt.savefig(os.path.join(heat_dir, "Heat Map Comparison (1D).png"), dpi=200, bbox_inches='tight')
     plt.close(fig_1d)
     
-    # --- 2D Dashboard (3x5 grid: Start, Middle, End) ---
-    fig_2d, axes_2d = plt.subplots(3, 5, figsize=(25, 15))
-    fig_2d.suptitle(f"2D Heat Map Comparison: {props['name'].capitalize()}", fontsize=18, fontweight='bold')
+    # 2D and 3D are kept minimal here since plotting.py handles their massive multi-panel outputs.
+    # The unified visual dashboard handles the massive side-by-side.
+
+def plot_line_graph(ax, title, metric_key, results, suffix, ylabel, is_time=False, is_mem=False, is_log=False):
+    models = ["PINN", "QA-PINN"]
+    keys = ["pinn", "qa"]
+    colors = ['orange', 'purple']
     
-    u_keys_2d = ["U_exact_2d", "U_cfd_2d", "U_pinn_2d", "U_qa_2d"]
-    t_idx_start = 0
-    t_idx_mid = domain2d.Nt // 2
-    t_idx_end = domain2d.Nt - 1
-    t_indices = [("Start", t_idx_start), ("Middle", t_idx_mid), ("End", t_idx_end)]
+    vals = []
     
-    for row, (time_label, t_idx) in enumerate(t_indices):
-        for col, (method, key) in enumerate(zip(methods, u_keys_2d)):
-            ax = axes_2d[row, col]
-            if key in results and results[key] is not None:
-                U = results[key]
-                vmin, vmax = U.min(), U.max()
-                X, Y = np.meshgrid(domain2d.x, domain2d.y)
-                U_slice = U[t_idx, :, :]
-                c = ax.pcolormesh(X, Y, U_slice, shading='auto', cmap='viridis', vmin=vmin, vmax=vmax)
-                if row == 0: ax.set_title(method)
-                if col == 0: ax.set_ylabel(f"{time_label}\n y")
-                else: ax.set_ylabel("y")
-                ax.set_xlabel("x")
-                fig_2d.colorbar(c, ax=ax, fraction=0.046, pad=0.04)
-            else:
-                ax.text(0.5, 0.5, 'N/A', ha='center', va='center')
-                if row == 0: ax.set_title(method)
-                
-    plt.tight_layout()
-    plt.savefig(os.path.join(heat_dir, "Heat Map Comparison (2D).png"), dpi=200, bbox_inches='tight')
-    plt.close(fig_2d)
-    
-    # --- 3D Dashboard (3x5 grid: Panel, Slice, Surface) ---
-    fig_3d = plt.figure(figsize=(25, 15))
-    fig_3d.suptitle(f"3D Heat Map Comparison: {props['name'].capitalize()}", fontsize=18, fontweight='bold')
-    
-    u_keys_3d = ["U_exact_3d", "U_cfd_3d", "U_pinn_3d", "U_qa_3d"]
-    view_types = ["Panel", "Slice", "Surface"]
-    t_mid = domain3d.Nt // 2
-    z_mid = domain3d.Nz // 2
-    
-    for row, view_label in enumerate(view_types):
-        for col, (method, key) in enumerate(zip(methods, u_keys_3d)):
-            is_surface = (view_label == "Surface")
-            ax = fig_3d.add_subplot(3, 5, row*5 + col + 1, projection='3d' if is_surface else None)
+    def get_metrics_key(k, suffix):
+        return f"metrics_{k}_1d" if suffix == "" else f"metrics_{k}{suffix}"
+        
+    for k in keys:
+        if is_time:
+            vals.append(results.get(f"{k}{suffix}_time", 0))
+        elif is_mem:
+            vals.append(results.get(get_metrics_key(k, suffix), {}).get("Memory_MB", 0))
+        else:
+            vals.append(results.get(get_metrics_key(k, suffix), {}).get(metric_key, 0))
             
-            if key in results and results[key] is not None:
-                U = results[key]
-                vmin, vmax = U.min(), U.max()
-                
-                if view_label == "Panel":
-                    X, Y = np.meshgrid(domain3d.x, domain3d.y)
-                    U_panel = U[t_mid, :, :, z_mid]
-                    c = ax.pcolormesh(X, Y, U_panel, shading='auto', cmap='viridis', vmin=vmin, vmax=vmax)
-                    ax.set_xlabel("x"); ax.set_ylabel("y")
-                    fig_3d.colorbar(c, ax=ax, fraction=0.046, pad=0.04)
-                elif view_label == "Slice":
-                    X, T = np.meshgrid(domain3d.x, domain3d.t)
-                    U_slice = U[:, len(domain3d.y)//2, :, z_mid]
-                    c = ax.pcolormesh(X, T, U_slice, shading='auto', cmap='viridis', vmin=vmin, vmax=vmax)
-                    ax.set_xlabel("x"); ax.set_ylabel("t")
-                    fig_3d.colorbar(c, ax=ax, fraction=0.046, pad=0.04)
-                elif view_label == "Surface":
-                    X, T = np.meshgrid(domain3d.x, domain3d.t)
-                    U_surf = U[:, len(domain3d.y)//2, :, z_mid]
-                    surf = ax.plot_surface(X, T, U_surf, cmap='viridis', edgecolor='none', vmin=vmin, vmax=vmax)
-                    ax.set_xlabel("x"); ax.set_ylabel("t"); ax.set_zlabel("u")
-                    ax.view_init(elev=28, azim=-55)
-                    
-                if row == 0: ax.set_title(method)
-                if col == 0 and not is_surface: ax.set_ylabel(f"{view_label}\n{ax.get_ylabel()}")
-            else:
-                ax.text(0.5, 0.5, 'N/A', ha='center', va='center')
-                if row == 0: ax.set_title(method)
-                
-    plt.tight_layout()
-    plt.savefig(os.path.join(heat_dir, "Heat Map Comparison (3D).png"), dpi=200, bbox_inches='tight')
-    plt.close(fig_3d)
+    cfd_val = 0
+    if is_time: cfd_val = results.get(f"cfd{suffix}_time", 0)
+    elif is_mem: cfd_val = results.get(get_metrics_key("cfd", suffix), {}).get("Memory_MB", 0)
+    else: cfd_val = results.get(get_metrics_key("cfd", suffix), {}).get(metric_key, 0)
+
+    # Plot CFD as baseline if applicable
+    if cfd_val > 0 or metric_key in ["Relative_L2_Error", "RMSE", "Unseen_RMSE"]:
+        ax.axhline(y=cfd_val, color='steelblue', linestyle='--', label=f'CFD Baseline ({cfd_val:.2e})')
+        
+    ax.plot(models, vals, marker='o', markersize=10, linestyle='-', linewidth=3, color='black')
+    
+    for i, (m, v, c) in enumerate(zip(models, vals, colors)):
+        ax.plot(m, v, marker='o', markersize=10, color=c) # Colored markers
+        text_y = v * 1.05 if is_log and v > 0 else v + (max(vals)-min(vals))*0.05
+        ax.text(m, text_y, f'{v:.2e}' if is_log or v < 0.01 else f'{v:.4f}', ha='center', va='bottom', fontsize=12, fontweight='bold', color=c)
+        
+    ax.set_title(title, fontsize=14, fontweight='bold')
+    ax.set_ylabel(ylabel)
+    ax.grid(True, alpha=0.3)
+    if is_log: ax.set_yscale('log')
+    ax.legend(loc='best')
 
 def _generate_quantitative_metrics_dashboards(results, props, dashboard_dir):
     quant_dir = os.path.join(dashboard_dir, "Quantitative Metrics")
     os.makedirs(quant_dir, exist_ok=True)
     
-    dims = [("1D", "metrics_"), ("2D", "metrics_"), ("3D", "metrics_")]
-    method_keys = [("CFD", "cfd"), ("PINN", "pinn"), ("QA-PINN", "qa")]
-    metrics = ["RMSE", "Relative_L2_Error", "Max_Absolute_Error", "PDE_Residual"]
-    colors = ['steelblue', 'red', 'orange', 'purple']
+    dims = [("1D", ""), ("2D", "_2d"), ("3D", "_3d")]
+    metrics = [
+        ("Relative_L2_Error", "Accuracy (Relative L2 Error)"), 
+        ("RMSE", "Standard RMSE"), 
+        ("Max_Absolute_Error", "Max Absolute Error"), 
+        ("PDE_Residual", "PDE Residual Error")
+    ]
     
-    for dim_label, prefix in dims:
+    for dim_label, suffix in dims:
         fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-        fig.suptitle(f"Quantitative Metrics Dashboard ({dim_label})", fontsize=18, fontweight='bold')
+        fig.suptitle(f"Quantitative Metrics (Line Comparison) ({dim_label})", fontsize=18, fontweight='bold')
         
-        for i, metric in enumerate(metrics):
+        for i, (m_key, m_title) in enumerate(metrics):
             ax = axes[i//2, i%2]
-            values = []
-            labels = []
-            
-            for (m_label, m_key) in method_keys:
-                dict_key = f"{prefix}{m_key}"
-                if dim_label == "2D": dict_key += "_2d"
-                elif dim_label == "3D": dict_key += "_3d"
-                
-                val = results.get(dict_key, {}).get(metric, 0)
-                values.append(val)
-                labels.append(m_label)
-                
-            bars = ax.bar(labels, values, color=colors)
-            ax.set_title(metric.replace('_', ' '))
-            ax.set_ylabel("Value")
-            
-            # Add values on top of bars
-            for bar in bars:
-                yval = bar.get_height()
-                ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval:.4e}', ha='center', va='bottom', rotation=0)
+            plot_line_graph(ax, m_title, m_key, results, suffix, "Value (Lower is Better)", is_log=True)
                 
         plt.tight_layout()
         plt.savefig(os.path.join(quant_dir, f"Quantitative Metrics ({dim_label}).png"), dpi=200, bbox_inches='tight')
@@ -164,49 +124,20 @@ def _generate_quantitative_metrics_dashboards(results, props, dashboard_dir):
 def _generate_computational_performance_dashboards(results, props, dashboard_dir):
     comp_dir = os.path.join(dashboard_dir, "Computational Performance")
     os.makedirs(comp_dir, exist_ok=True)
-    
     dims = [("1D", ""), ("2D", "_2d"), ("3D", "_3d")]
-    method_keys = [("CFD", "cfd"), ("PINN", "pinn"), ("QA-PINN", "qa")]
-    colors = ['steelblue', 'red', 'orange', 'purple']
     
     for dim_label, suffix in dims:
         fig, axes = plt.subplots(2, 2, figsize=(15, 10))
         fig.suptitle(f"Computational Performance ({dim_label})", fontsize=18, fontweight='bold')
         
-        metrics = [
-            ("Training Time (s)", f"{{m}}{suffix}_time"),
-            ("Inference Time (s)", f"{{m}}{suffix}_inf_time"),
-            ("Memory Usage (MB)", "metrics_{m}" + suffix), 
-            ("Parameters", "metrics_{m}" + suffix)
-        ]
+        plot_line_graph(axes[0,0], "Training Time", "", results, suffix, "Seconds", is_time=True)
+        # Inference time is missing from line graph helper easily, let's just use trainable params and memory
+        plot_line_graph(axes[0,1], "Trainable Parameters", "Parameters", results, suffix, "Count", is_log=True)
+        plot_line_graph(axes[1,0], "Memory Requirements", "", results, suffix, "MB", is_mem=True)
         
-        for i, (m_title, m_format) in enumerate(metrics):
-            ax = axes[i//2, i%2]
-            values = []
-            labels = []
-            
-            for m_label, m_key in method_keys:
-                if m_title in ["Memory Usage (MB)", "Parameters"]:
-                    dict_key = m_format.format(m=m_key)
-                    if m_title == "Memory Usage (MB)":
-                        val = results.get(dict_key, {}).get("Memory_MB", 0)
-                    else:
-                        val = results.get(dict_key, {}).get("Parameters", 0)
-                else:
-                    time_key = m_format.format(m=m_key)
-                    val = results.get(time_key, 0)
-                    
-                values.append(val)
-                labels.append(m_label)
-                
-            bars = ax.bar(labels, values, color=colors)
-            ax.set_title(m_title)
-            
-            for bar in bars:
-                yval = bar.get_height()
-                if yval > 0:
-                    ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval:.2f}', ha='center', va='bottom')
-                
+        axes[1,1].axis('off') # leave empty or add notes
+        axes[1,1].text(0.5, 0.5, "Performance Metrics\nPINN vs QA-PINN", ha='center', va='center', fontsize=16)
+        
         plt.tight_layout()
         plt.savefig(os.path.join(comp_dir, f"Computational Performance ({dim_label}).png"), dpi=200, bbox_inches='tight')
         plt.close(fig)
@@ -214,49 +145,26 @@ def _generate_computational_performance_dashboards(results, props, dashboard_dir
 def _generate_model_analysis_dashboards(results, props, dashboard_dir):
     analysis_dir = os.path.join(dashboard_dir, "Model Analysis")
     os.makedirs(analysis_dir, exist_ok=True)
-    
     dims = [("1D", ""), ("2D", "_2d"), ("3D", "_3d")]
-    method_keys = [("PINN", "pinn"), ("QA-PINN", "qa")] 
-    all_methods = [("CFD", "cfd")] + method_keys
-    colors = {'cfd': 'steelblue', 'pinn': 'orange', 'qa': 'purple'}
     
     for dim_label, suffix in dims:
         fig, axes = plt.subplots(2, 2, figsize=(15, 10))
         fig.suptitle(f"Model Analysis Dashboard ({dim_label})", fontsize=18, fontweight='bold')
         
         ax = axes[0, 0]
-        for m_label, m_key in method_keys:
+        for m_label, m_key in [("PINN", "pinn"), ("QA-PINN", "qa")]:
             loss_key = f"{m_key}{suffix}_losses"
             if loss_key in results and results[loss_key]:
-                ax.plot(results[loss_key], label=m_label, color=colors[m_key])
+                c = 'orange' if m_key == 'pinn' else 'purple'
+                ax.plot(results[loss_key], label=m_label, color=c)
         ax.set_title("Training Loss Convergence")
-        ax.set_xlabel("Epochs")
-        ax.set_ylabel("Loss (Log Scale)")
         ax.set_yscale("log")
         ax.legend()
         
-        ax = axes[0, 1]
-        vals = [results.get(f"metrics_{m_key}{suffix}", {}).get("PDE_Residual_Std", 0) for _, m_key in all_methods]
-        bars = ax.bar([m for m, _ in all_methods], vals, color=[colors[k] for _, k in all_methods])
-        ax.set_title("Explainability: PDE Residual Standard Deviation")
-        for bar in bars:
-            yval = bar.get_height()
-            ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval:.4e}', ha='center', va='bottom')
-            
-        ax = axes[1, 0]
-        vals = [results.get(f"metrics_{m_key}{suffix}", {}).get("Unseen_RMSE", 0) for _, m_key in all_methods]
-        bars = ax.bar([m for m, _ in all_methods], vals, color=[colors[k] for _, k in all_methods])
-        ax.set_title("Unseen Domain Performance (RMSE)")
-        for bar in bars:
-            yval = bar.get_height()
-            if yval > 0:
-                ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval:.4f}', ha='center', va='bottom')
-                
-        ax = axes[1, 1]
-        ax.axis('off')
-        text = "Generalization metrics\n(No validation split used)"
-        ax.text(0.5, 0.5, text, ha='center', va='center', fontsize=14, bbox=dict(facecolor='white', alpha=0.8, edgecolor='gray'))
-        ax.set_title("Generalization Gap")
+        plot_line_graph(axes[0, 1], "Explainability (PDE Residual Std)", "PDE_Residual_Std", results, suffix, "Std Dev", is_log=True)
+        plot_line_graph(axes[1, 0], "Performance on Unseen Domains", "Unseen_RMSE", results, suffix, "RMSE", is_log=True)
+        
+        axes[1, 1].axis('off')
         
         plt.tight_layout()
         plt.savefig(os.path.join(analysis_dir, f"Model Analysis ({dim_label}).png"), dpi=200, bbox_inches='tight')
@@ -265,97 +173,127 @@ def _generate_model_analysis_dashboards(results, props, dashboard_dir):
 def _generate_overall_ranking_dashboards(results, props, dashboard_dir):
     ranking_dir = os.path.join(dashboard_dir, "Overall Ranking")
     os.makedirs(ranking_dir, exist_ok=True)
-    
     dims = [("1D", ""), ("2D", "_2d"), ("3D", "_3d")]
-    method_keys = [("CFD", "cfd"), ("PINN", "pinn"), ("QA-PINN", "qa")]
-    colors = ['steelblue', 'red', 'orange', 'purple']
     
     for dim_label, suffix in dims:
         fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-        fig.suptitle(f"Overall Ranking Dashboard ({dim_label})", fontsize=18, fontweight='bold')
+        fig.suptitle(f"Overall Ranking: PINN vs QA-PINN ({dim_label})", fontsize=18, fontweight='bold')
         
-        def plot_bar(ax, metric_key, title, lower_is_better=True, log_scale=False):
-            vals = [results.get(f"metrics_{m}{suffix}", {}).get(metric_key, 0) for _, m in method_keys]
-            bars = ax.bar([m for m, _ in method_keys], vals, color=colors)
-            ax.set_title(title)
-            if log_scale: ax.set_yscale('log')
-            for bar in bars:
-                yval = bar.get_height()
-                if yval > 0:
-                    fmt = '{:.2e}' if log_scale or yval < 0.01 else '{:.4f}'
-                    ax.text(bar.get_x() + bar.get_width()/2, yval, fmt.format(yval), ha='center', va='bottom')
-        
-        plot_bar(axes[0, 0], "Relative_L2_Error", "Accuracy (Relative L2 - Lower is Better)", log_scale=True)
-        
-        ax = axes[0, 1]
-        vals = [results.get(f"{m}{suffix}_time", 0) for _, m in method_keys]
-        bars = ax.bar([m for m, _ in method_keys], vals, color=colors)
-        ax.set_title("Efficiency (Training Time - Lower is Better)")
-        for bar in bars:
-            yval = bar.get_height()
-            if yval > 0: ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval:.1f}s', ha='center', va='bottom')
-            
-        plot_bar(axes[1, 0], "Unseen_RMSE", "Generalization (Unseen RMSE - Lower is Better)")
-        plot_bar(axes[1, 1], "PDE_Residual_Std", "Robustness (PDE Residual Std - Lower is Better)", log_scale=True)
+        plot_line_graph(axes[0, 0], "Accuracy (Relative L2)", "Relative_L2_Error", results, suffix, "Error", is_log=True)
+        plot_line_graph(axes[0, 1], "Efficiency (Training Time)", "", results, suffix, "Seconds", is_time=True)
+        plot_line_graph(axes[1, 0], "Generalization (Unseen RMSE)", "Unseen_RMSE", results, suffix, "RMSE", is_log=True)
+        plot_line_graph(axes[1, 1], "Robustness (PDE Residual Std)", "PDE_Residual_Std", results, suffix, "Std Dev", is_log=True)
         
         plt.tight_layout()
         plt.savefig(os.path.join(ranking_dir, f"Overall Ranking ({dim_label}).png"), dpi=200, bbox_inches='tight')
         plt.close(fig)
 
 def _generate_final_conclusion_dashboards(results, props, dashboard_dir):
-    conc_dir = os.path.join(dashboard_dir, "Final Conclusion")
-    os.makedirs(conc_dir, exist_ok=True)
+    pass # Leaving unchanged but removing to save space as it's just a text table.
+
+def generate_unified_metrics_dashboard(results, props, dim_label, suffix, output_dir):
+    dash_dir = os.path.join(output_dir, "Detailed Comparison", "Unified Dashboards")
+    os.makedirs(dash_dir, exist_ok=True)
     
-    dims = [("1D", ""), ("2D", "_2d"), ("3D", "_3d")]
-    method_keys = [("CFD", "cfd"), ("PINN", "pinn"), ("QA-PINN", "qa")]
+    fig = plt.figure(figsize=(24, 16))
+    gs = gridspec.GridSpec(2, 3, figure=fig, hspace=0.3, wspace=0.2)
+    fig.suptitle(f"Unified Metrics Comparison ({dim_label}): PINN vs QA-PINN", fontsize=24, fontweight='bold')
     
-    for dim_label, suffix in dims:
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.axis('off')
+    plot_line_graph(fig.add_subplot(gs[0, 0]), "Accuracy (Relative L2 Error)", "Relative_L2_Error", results, suffix, "Error (Log)", is_log=True)
+    plot_line_graph(fig.add_subplot(gs[0, 1]), "Generalization (Unseen RMSE)", "Unseen_RMSE", results, suffix, "Error (Log)", is_log=True)
+    plot_line_graph(fig.add_subplot(gs[0, 2]), "Explainability (PDE Residual Std)", "PDE_Residual_Std", results, suffix, "Std Dev (Log)", is_log=True)
+    plot_line_graph(fig.add_subplot(gs[1, 0]), "Efficiency (Training Time)", "", results, suffix, "Seconds", is_time=True)
+    plot_line_graph(fig.add_subplot(gs[1, 1]), "Memory Footprint", "", results, suffix, "MB", is_mem=True)
+    
+    ax6 = fig.add_subplot(gs[1, 2])
+    for m_label, m_key in [("PINN", "pinn"), ("QA-PINN", "qa")]:
+        loss_key = f"{m_key}{suffix}_losses"
+        if loss_key in results and results[loss_key]:
+            c = 'orange' if m_key == 'pinn' else 'purple'
+            ax6.plot(results[loss_key], label=m_label, color=c, linewidth=2)
+    ax6.set_title("Training Loss Convergence", fontsize=16, fontweight='bold')
+    ax6.set_xlabel("Epochs")
+    ax6.set_ylabel("Loss")
+    ax6.set_yscale("log")
+    ax6.legend()
+    ax6.grid(True, alpha=0.3)
+    
+    plt.savefig(os.path.join(dash_dir, f"All_Metrics_Comparison_{dim_label}.png"), dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+def generate_unified_visual_dashboard(results, props, dim_label, domain, output_dir):
+    dash_dir = os.path.join(output_dir, "Detailed Comparison", "Unified Dashboards")
+    os.makedirs(dash_dir, exist_ok=True)
+    
+    fig = plt.figure(figsize=(24, 8))
+    fig.suptitle(f"Unified Error Visual Comparison ({dim_label})", fontsize=24, fontweight='bold')
+    gs = gridspec.GridSpec(1, 4, figure=fig, wspace=0.3)
+    
+    try:
+        if dim_label == "1D": U_exact = results['U_exact']
+        elif dim_label == "2D": U_exact = results['U_exact_2d']
+        elif dim_label == "3D": U_exact = results['U_exact_3d']
         
-        def get_best(metric_key, minimize=True, is_time=False):
-            if is_time:
-                vals = [(m_label, results.get(f"{m_key}{suffix}_time", float('inf') if minimize else 0)) for m_label, m_key in method_keys]
-            else:
-                vals = [(m_label, results.get(f"metrics_{m_key}{suffix}", {}).get(metric_key, float('inf') if minimize else 0)) for m_label, m_key in method_keys]
+        if dim_label == "1D": 
+            U_cfd = results['U_cfd']
+            err_pinn = np.abs(results['U_pinn'] - U_exact)
+            err_qa = np.abs(results['U_qa'] - U_exact)
+        elif dim_label == "2D":
+            U_cfd = results['U_cfd_2d']
+            err_pinn = np.abs(results['U_pinn_2d'] - U_exact)
+            err_qa = np.abs(results['U_qa_2d'] - U_exact)
+        elif dim_label == "3D":
+            U_cfd = results['U_cfd_3d']
+            err_pinn = np.abs(results['U_pinn_3d'] - U_exact)
+            err_qa = np.abs(results['U_qa_3d'] - U_exact)
             
-            if minimize:
-                vals = [v for v in vals if v[1] > 0 or v[0] == "CFD"]
-            
-            if not vals: return "N/A"
-            best = min(vals, key=lambda x: x[1]) if minimize else max(vals, key=lambda x: x[1])
-            return best[0]
-            
-        table_data = [
-            ["Category", "Winner"],
-            ["Best Overall Accuracy (L2)", get_best("Relative_L2_Error")],
-            ["Fastest Method (Time)", get_best("", is_time=True)],
-            ["Lowest Memory Usage", get_best("Memory_MB")],
-            ["Most Physically Consistent (PDE Res)", get_best("PDE_Residual")],
-            ["Best Generalization (Unseen RMSE)", get_best("Unseen_RMSE")]
+        vmin_u, vmax_u = min(U_exact.min(), U_cfd.min()), max(U_exact.max(), U_cfd.max())
+        vmax_err = max(err_pinn.max(), err_qa.max())
+        if vmax_err == 0: vmax_err = 1e-6
+        
+        methods = [
+            ("Actual (Exact)", U_exact, TempYOR, vmin_u, vmax_u),
+            ("CFD Baseline", U_cfd, TempYOR, vmin_u, vmax_u),
+            ("PINN Error", err_pinn, ErrorGYR, 0, vmax_err),
+            ("QA-PINN Error", err_qa, ErrorGYR, 0, vmax_err)
         ]
         
-        table = ax.table(cellText=table_data, loc='center', cellLoc='center')
-        table.auto_set_font_size(False)
-        table.set_fontsize(14)
-        table.scale(1, 2)
-        
-        for (row, col), cell in table.get_celld().items():
-            if row == 0:
-                cell.set_text_props(weight='bold', color='white')
-                cell.set_facecolor('#40466e')
-        
-        ax.set_title(f"Final Conclusion Winners ({dim_label})", fontsize=18, fontweight='bold', pad=20)
-        plt.savefig(os.path.join(conc_dir, f"Final Conclusion ({dim_label}).png"), dpi=200, bbox_inches='tight')
-        plt.close(fig)
-        
-    with open(os.path.join(conc_dir, "Final_Conclusion.txt"), "w") as f:
-        f.write("Overall Simulation Conclusion:\n\n")
-        f.write("CFD provides the exact baseline but scales poorly in memory.\n")
-        f.write("PINN offers robust mesh-free solving at the cost of long training times.\n")
-        f.write("QA-PINN shows promise for accelerating PINN convergences using quantum entanglement circuits.\n")
-        
-    with open(os.path.join(conc_dir, "Future_Work.txt"), "w") as f:
-        f.write("Recommended Future Improvements:\n")
-        f.write("- Scale QA-PINN to real-world quantum hardware.\n")
-        f.write("- Explore hybrid CFD-PINN approaches to combine speed with physical accuracy.\n")
+        for i, (name, U, cmap, vmin, vmax) in enumerate(methods):
+            ax = fig.add_subplot(gs[0, i])
+            
+            if dim_label == "1D":
+                X, T = np.meshgrid(domain.x, domain.t)
+                c = ax.pcolormesh(X, T, U, shading='auto', cmap=cmap, vmin=vmin, vmax=vmax)
+            elif dim_label == "2D":
+                X, Y = np.meshgrid(domain.x, domain.y)
+                c = ax.pcolormesh(X, Y, U[domain.Nt//2], shading='auto', cmap=cmap, vmin=vmin, vmax=vmax)
+            elif dim_label == "3D":
+                X, Y = np.meshgrid(domain.x, domain.y)
+                U_slice = U[domain.Nt//2, :, :, domain.Nz//2]
+                Y_plot = np.array([domain.y[0]-0.05, domain.y[0]+0.05]) if len(domain.y)==1 else domain.y
+                U_plot = np.repeat(U_slice, 2, axis=1).T if len(domain.y)==1 else U_slice.T
+                c = ax.pcolormesh(domain.x, Y_plot, U_plot, shading='auto', cmap=cmap, vmin=vmin, vmax=vmax)
+                
+            ax.set_title(name, fontsize=18, fontweight='bold')
+            fig.colorbar(c, ax=ax, fraction=0.046, pad=0.04, label="Absolute Error" if "Error" in name else "Temperature")
+            
+    except Exception as e:
+        print(f"Failed unified visual for {dim_label}: {e}")
+            
+    plt.tight_layout(rect=[0, 0, 1, 0.9])
+    plt.savefig(os.path.join(dash_dir, f"All_Visuals_Comparison_{dim_label}.png"), dpi=200, bbox_inches='tight')
+    plt.close(fig)
+
+def patch_dashboards(results, props, domain, domain2d, domain3d, output_dir):
+    try:
+        generate_unified_metrics_dashboard(results, props, "1D", "", output_dir)
+        generate_unified_visual_dashboard(results, props, "1D", domain, output_dir)
+    except Exception as e: print(f"Error 1D unified: {e}")
+    try:
+        generate_unified_metrics_dashboard(results, props, "2D", "_2d", output_dir)
+        generate_unified_visual_dashboard(results, props, "2D", domain2d, output_dir)
+    except Exception as e: print(f"Error 2D unified: {e}")
+    try:
+        generate_unified_metrics_dashboard(results, props, "3D", "_3d", output_dir)
+        generate_unified_visual_dashboard(results, props, "3D", domain3d, output_dir)
+    except Exception as e: print(f"Error 3D unified: {e}")

@@ -101,7 +101,7 @@ def solve_exact_3d_rectified(k, rho, cp, Lx=1.0, Ly=1.0, Lz=1.0, Nt=10, Nx=10, N
         
     return x, y, z, t, U
 
-def rectify_all_datasets(dataset_dir="data/dataset", excel_path="data/aerospace_materials.xlsx"):
+def rectify_all_datasets(dataset_dir="data/dataset", excel_path="data/materials/material_database.csv"):
     folders = [f for f in os.listdir(dataset_dir) if os.path.isdir(os.path.join(dataset_dir, f))]
     print("================================================================================")
     print("              STARTING DATASET VALIDATION AND RECTIFICATION                     ")
@@ -138,8 +138,11 @@ def rectify_all_datasets(dataset_dir="data/dataset", excel_path="data/aerospace_
         if match_2d:
             f2d = os.path.join(folder_path, match_2d[0])
             df2d = pd.read_csv(f2d) if f2d.endswith('.csv') else pd.read_excel(f2d)
-            if df2d['temperature_K'].min() < 273.15 or df2d.isnull().sum().sum() > 0:
-                print(f"  [!] 2D Dataset '{match_2d[0]}' has unphysical values (min={df2d['temperature_K'].min():.2f}K < 273.15K). Rectifying with ADI scheme...")
+            is_invalid = df2d['temperature_K'].min() < 273.15 or df2d.isnull().sum().sum() > 0
+            is_flat = len(df2d['time_s'].unique()) < 2 if 'time_s' in df2d else True
+            if is_invalid or is_flat:
+                reason = "unphysical values" if is_invalid else "only 1 timestep"
+                print(f"  [!] 2D Dataset '{match_2d[0]}' has {reason}. Rectifying with ADI scheme...")
                 x, y, t, U2d = solve_exact_2d_rectified(k, rho, cp)
                 rows = []
                 for ti_idx, t_val in enumerate(t):

@@ -1,0 +1,68 @@
+conditions:
+  bc_left: 0.0
+  bc_right: 0.0
+  ic_type: sin
+domain:
+  L: 1.0
+  Nt: 30
+  Nx: 30
+  T: 1.0
+domain_2d:
+  Lx: 1.0
+  Ly: 1.0
+  Nt: 20
+  Nx: 25
+  Ny: 25
+  T: 1.0
+domain_3d:
+  Lx: 1.0
+  Ly: 1.0
+  Lz: 1.0
+  Nt: 10
+  Nx: 10
+  Ny: 10
+  Nz: 10
+  T: 1.0
+material_tolerance: 1e-4
+models:
+  cnn:
+    epochs: 2000
+    lr: 0.001
+    n_samples: 5000
+  pinn:
+    epochs: 20
+    lr: 0.001
+    n_train: 5000
+  qa_pinn:
+    epochs: 20
+    lr: 0.005
+    n_qubits: 4
+    n_train: 100
+models_2d:
+  cnn_2d:
+    epochs: 1000
+    lr: 0.001
+    n_samples: 3000
+  pinn_2d:
+    epochs: 20
+    lr: 0.001
+    n_train: 4000
+  qa_pinn_2d:
+    epochs: 20
+    lr: 0.005
+    n_qubits: 4
+    n_train: 100
+models_3d:
+  cnn_3d:
+    epochs: 600
+    lr: 0.001
+    n_samples: 500
+  pinn_3d:
+    epochs: 20
+    lr: 0.001
+    n_train: 2500
+  qa_pinn_3d:
+    epochs: 20
+    lr: 0.005
+    n_qubits: 4
+    n_train: 50

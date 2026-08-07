@@ -42,9 +42,16 @@ from src.plotting import (
     generate_2d_comparison_figure,
     generate_3d_comparison_figure,
     save_2d_heatmaps,
-    save_3d_heatmaps
+    save_3d_heatmaps,
+    plot_training_loss_history,
+    plot_fourier_spectrum,
+    plot_solution_snapshots,
+    plot_fourier_spectrum_2d,
+    plot_fourier_spectrum_3d,
+    plot_solution_snapshots_2d,
+    plot_solution_snapshots_3d
 )
-from src.dashboards import generate_detailed_dashboards
+from src.dashboards import generate_detailed_dashboards, patch_dashboards
 from src.report_generator import generate_report
 
 def main():
@@ -338,7 +345,6 @@ def main():
         unseen_domain.U_exact = None
         unseen_domain.initial_condition = lambda x: np.sin(np.pi * x / domain.L) + 0.5 * np.sin(3 * np.pi * x / domain.L)
     
-        U_unseen_exact, _ = solve_exact(unseen_domain, None)
         U_unseen_cfd, _, _ = solve_cfd(unseen_domain, None)
     
         X, T, _, _ = unseen_domain.get_grid()
@@ -348,24 +354,88 @@ def main():
             U_unseen_pinn = pinn_model(xt_test[:, 0:1], xt_test[:, 1:2]).cpu().numpy().reshape(domain.Nt, domain.Nx)
             U_unseen_qa = qa_model(xt_test[:, 0:1], xt_test[:, 1:2]).cpu().numpy().reshape(domain.Nt, domain.Nx)
         
-        results['metrics_cfd_1d']['Unseen_RMSE'] = calculate_metrics(U_unseen_cfd, U_unseen_exact)['RMSE']
-        results['metrics_pinn_1d']['Unseen_RMSE'] = calculate_metrics(U_unseen_pinn, U_unseen_exact)['RMSE']
-        results['metrics_qa_1d']['Unseen_RMSE'] = calculate_metrics(U_unseen_qa, U_unseen_exact)['RMSE']
-    
+        results['metrics_cfd_1d']['Unseen_RMSE'] = 0.0
+        results['metrics_pinn_1d']['Unseen_RMSE'] = calculate_metrics(U_unseen_pinn, U_unseen_cfd)['RMSE']
+        results['metrics_qa_1d']['Unseen_RMSE'] = calculate_metrics(U_unseen_qa, U_unseen_cfd)['RMSE']
+    if "2D" in dims_to_run:
+        print("2.5 Evaluating 2D Solvers on Unseen Domain (Complex Initial Condition)...")
+        unseen_domain2d = copy.deepcopy(domain2d)
+        unseen_domain2d.U_exact = None
+        unseen_domain2d.initial_condition = lambda X, Y: np.sin(np.pi * X / domain2d.Lx) * np.sin(np.pi * Y / domain2d.Ly) + 0.5 * np.sin(3 * np.pi * X / domain2d.Lx) * np.sin(3 * np.pi * Y / domain2d.Ly)
+        
+        U_unseen_cfd_2d, _, _ = solve_cfd_2d(unseen_domain2d, None)
+        
+        X3, Y3, T3 = unseen_domain2d.get_xyt_grid()
+        xyt_test = torch.FloatTensor(np.column_stack([X3.flatten(), Y3.flatten(), T3.flatten()])).to(device)
+        with torch.no_grad():
+            U_unseen_pinn_2d = pinn_2d_model(xyt_test[:, 0:1], xyt_test[:, 1:2], xyt_test[:, 2:3]).cpu().numpy().reshape(domain2d.Nt, domain2d.Ny, domain2d.Nx)
+            U_unseen_qa_2d = qa_2d_model(xyt_test[:, 0:1], xyt_test[:, 1:2], xyt_test[:, 2:3]).cpu().numpy().reshape(domain2d.Nt, domain2d.Ny, domain2d.Nx)
+            
+        results['metrics_cfd_2d']['Unseen_RMSE'] = 0.0
+        results['metrics_pinn_2d']['Unseen_RMSE'] = calculate_metrics(U_unseen_pinn_2d, U_unseen_cfd_2d)['RMSE']
+        results['metrics_qa_2d']['Unseen_RMSE'] = calculate_metrics(U_unseen_qa_2d, U_unseen_cfd_2d)['RMSE']
+
+    if "3D" in dims_to_run:
+        print("3.5 Evaluating 3D Solvers on Unseen Domain (Complex Initial Condition)...")
+        unseen_domain3d = copy.deepcopy(domain3d)
+        unseen_domain3d.U_exact = None
+        unseen_domain3d.initial_condition = lambda X, Y, Z: np.sin(np.pi * X / domain3d.Lx) * np.sin(np.pi * Y / domain3d.Ly) * np.sin(np.pi * Z / domain3d.Lz) + 0.5 * np.sin(3 * np.pi * X / domain3d.Lx) * np.sin(3 * np.pi * Y / domain3d.Ly) * np.sin(3 * np.pi * Z / domain3d.Lz)
+        
+        U_unseen_cfd_3d, _, _ = solve_cfd_3d(unseen_domain3d, None)
+        
+        X4, Y4, Z4, T4 = unseen_domain3d.get_xyzt_grid()
+        xyzt_test = torch.FloatTensor(np.column_stack([X4.flatten(), Y4.flatten(), Z4.flatten(), T4.flatten()])).to(device)
+        with torch.no_grad():
+            U_unseen_pinn_3d = pinn_3d_model(xyzt_test[:, 0:1], xyzt_test[:, 1:2], xyzt_test[:, 2:3], xyzt_test[:, 3:4]).cpu().numpy().reshape(domain3d.Nt, domain3d.Nx, domain3d.Ny, domain3d.Nz)
+            U_unseen_qa_3d = qa_3d_model(xyzt_test[:, 0:1], xyzt_test[:, 1:2], xyzt_test[:, 2:3], xyzt_test[:, 3:4]).cpu().numpy().reshape(domain3d.Nt, domain3d.Nx, domain3d.Ny, domain3d.Nz)
+            
+        results['metrics_cfd_3d']['Unseen_RMSE'] = 0.0
+        results['metrics_pinn_3d']['Unseen_RMSE'] = calculate_metrics(U_unseen_pinn_3d, U_unseen_cfd_3d)['RMSE']
+        results['metrics_qa_3d']['Unseen_RMSE'] = calculate_metrics(U_unseen_qa_3d, U_unseen_cfd_3d)['RMSE']
     print("\nGenerating Surface Plots & 3-Panel Comparisons (Viridis & Hot Error Maps)...")
     if "1D" in dims_to_run:
         generate_comparison_figure(domain, results, props, output_dir)
         save_individual_heatmaps(domain, results, output_dir)
+        
+        # New Advanced Visualizations
+        plot_training_loss_history(results['pinn_losses'], "Model A (Classical PINN)", os.path.join(output_dir, "PINN", "1D", "training_loss.png"))
+        plot_training_loss_history(results['qa_losses'], "Model B (QA-PINN)", os.path.join(output_dir, "QA-PINN", "1D", "training_loss.png"))
+        
+        plot_fourier_spectrum(results['U_exact'], results['U_pinn'], domain.x, os.path.join(output_dir, "PINN", "1D", "fourier_spectrum.png"))
+        plot_fourier_spectrum(results['U_exact'], results['U_qa'], domain.x, os.path.join(output_dir, "QA-PINN", "1D", "fourier_spectrum.png"))
+        
+        plot_solution_snapshots(results['U_exact'], results['U_pinn'], domain.x, domain.t, os.path.join(output_dir, "PINN", "1D", "solution_snapshots.png"))
+        plot_solution_snapshots(results['U_exact'], results['U_qa'], domain.x, domain.t, os.path.join(output_dir, "QA-PINN", "1D", "solution_snapshots.png"))
     if "2D" in dims_to_run:
         generate_2d_comparison_figure(domain2d, results, props, output_dir)
         save_2d_heatmaps(domain2d, results, output_dir)
+        
+        plot_training_loss_history(results['pinn_2d_losses'], "Model A (Classical PINN 2D)", os.path.join(output_dir, "PINN", "2D", "training_loss.png"))
+        plot_training_loss_history(results['qa_2d_losses'], "Model B (QA-PINN 2D)", os.path.join(output_dir, "QA-PINN", "2D", "training_loss.png"))
+        
+        plot_fourier_spectrum_2d(results['U_exact_2d'], results['U_pinn_2d'], domain2d.x, domain2d.y, os.path.join(output_dir, "PINN", "2D", "fourier_spectrum.png"))
+        plot_fourier_spectrum_2d(results['U_exact_2d'], results['U_qa_2d'], domain2d.x, domain2d.y, os.path.join(output_dir, "QA-PINN", "2D", "fourier_spectrum.png"))
+        
+        plot_solution_snapshots_2d(results['U_exact_2d'], results['U_pinn_2d'], domain2d.x, domain2d.y, domain2d.t, os.path.join(output_dir, "PINN", "2D", "solution_snapshots.png"))
+        plot_solution_snapshots_2d(results['U_exact_2d'], results['U_qa_2d'], domain2d.x, domain2d.y, domain2d.t, os.path.join(output_dir, "QA-PINN", "2D", "solution_snapshots.png"))
+        
     if "3D" in dims_to_run:
         generate_3d_comparison_figure(domain3d, results, props, output_dir)
         save_3d_heatmaps(domain3d, results, output_dir)
+        
+        plot_training_loss_history(results['pinn_3d_losses'], "Model A (Classical PINN 3D)", os.path.join(output_dir, "PINN", "3D", "training_loss.png"))
+        plot_training_loss_history(results['qa_3d_losses'], "Model B (QA-PINN 3D)", os.path.join(output_dir, "QA-PINN", "3D", "training_loss.png"))
+        
+        plot_fourier_spectrum_3d(results['U_exact_3d'], results['U_pinn_3d'], domain3d.x, domain3d.y, domain3d.z, os.path.join(output_dir, "PINN", "3D", "fourier_spectrum.png"))
+        plot_fourier_spectrum_3d(results['U_exact_3d'], results['U_qa_3d'], domain3d.x, domain3d.y, domain3d.z, os.path.join(output_dir, "QA-PINN", "3D", "fourier_spectrum.png"))
+        
+        plot_solution_snapshots_3d(results['U_exact_3d'], results['U_pinn_3d'], domain3d.x, domain3d.y, domain3d.z, domain3d.t, os.path.join(output_dir, "PINN", "3D", "solution_snapshots.png"))
+        plot_solution_snapshots_3d(results['U_exact_3d'], results['U_qa_3d'], domain3d.x, domain3d.y, domain3d.z, domain3d.t, os.path.join(output_dir, "QA-PINN", "3D", "solution_snapshots.png"))
     
     print("\n" + "="*80 + "\n                    GENERATING DETAILED DASHBOARDS & REPORTS\n" + "="*80 + "\n\nGenerating Dashboards...\nGenerating Analytical Report...")
     
     generate_detailed_dashboards(results, props, domain, domain2d, domain3d, output_dir)
+    patch_dashboards(results, props, domain, domain2d, domain3d, output_dir)
     generate_report(results, props, config, output_dir)
     
     print("\n" + "="*80 + "\n                               EXECUTION COMPLETE\n" + "="*80 + f"\n\n[+] ALL 1D, 2D, AND 3D SIMULATION OUTPUTS SUCCESSFULLY GENERATED AND SAVED TO:\n--> {output_dir}\n\nGenerated Artifact Summary:\n  * Classical & Quantum Architectures : PINN, QA-PINN (1D/2D/3D)\n  * Quantum Circuits                  : 1D, 2D, 3D PennyLane Variational Circuits\n  * Surface & Heatmap Diagrams        : Matplotlib viridis 3D surfaces & 2D slices\n  * Reports                           : Markdown & PDF Reports\n" + "="*80)

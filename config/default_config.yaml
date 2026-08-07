@@ -15,10 +15,10 @@ models:
     lr: 0.001
     n_train: 5000
   qa_pinn:
-    epochs: 600
+    epochs: 800
     lr: 0.005
     n_qubits: 4
-    n_train: 100
+    n_train: 150
   cnn:
     epochs: 2000
     lr: 0.001
@@ -40,10 +40,10 @@ models_2d:
     lr: 0.001
     n_train: 4000
   qa_pinn_2d:
-    epochs: 400
+    epochs: 600
     lr: 0.005
     n_qubits: 4
-    n_train: 100
+    n_train: 150
   cnn_2d:
     epochs: 1000
     lr: 0.001
@@ -65,10 +65,10 @@ models_3d:
     lr: 0.001
     n_train: 2500
   qa_pinn_3d:
-    epochs: 200
+    epochs: 400
     lr: 0.005
     n_qubits: 4
-    n_train: 50
+    n_train: 100
   cnn_3d:
     epochs: 600
     lr: 0.001
