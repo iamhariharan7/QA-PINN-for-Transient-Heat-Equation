@@ -1,0 +1,62 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "80d45562-0988-45d3-8f4d-b6fd173fcc50",
+    "material": "Graphite",
+    "chemical_symbol": "C",
+    "dimension": 3,
+    "geometry": "Cube",
+    "grid_resolution": "43x43x43",
+    "mesh_size": "43x43x43",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "z_front": {
+            "type": "neumann",
+            "value": 784.7574446376577
+        },
+        "z_back": {
+            "type": "dirichlet",
+            "value": 331.0796044740899
+        },
+        "y_top": {
+            "type": "dirichlet",
+            "value": 294.71653381333033
+        },
+        "y_bottom": {
+            "type": "neumann",
+            "value": 265.74910215798855
+        },
+        "x_left": {
+            "type": "dirichlet",
+            "value": 362.4822807835379
+        },
+        "x_right": {
+            "type": "dirichlet",
+            "value": 278.9671315587941
+        }
+    },
+    "initial_temperature": 295.87659880678785,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 4245.525255576952
+    },
+    "thermal_conductivity": [
+        1950.0,
+        1950.0,
+        5.7
+    ],
+    "density": 2220.0,
+    "specific_heat_capacity": 710.0,
+    "thermal_diffusivity": [
+        0.0012,
+        0.0012,
+        3.6e-06
+    ],
+    "simulation_time": 16.221868170275908,
+    "time_step": 0.03496092278076704,
+    "random_seed": 944576,
+    "generation_timestamp": "2026-08-06T13:39:23.249888",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

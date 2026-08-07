@@ -1,0 +1,8 @@
+{
+    "left": {
+        "type": "adiabatic"
+    },
+    "right": {
+        "type": "adiabatic"
+    }
+}

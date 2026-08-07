@@ -1,0 +1,52 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "3e6d01ff-9de1-47ad-b2db-53043b5df36c",
+    "material": "Silicon Carbide",
+    "chemical_symbol": "SiC",
+    "dimension": 3,
+    "geometry": "Cube",
+    "grid_resolution": "18x18x18",
+    "mesh_size": "18x18x18",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "z_front": {
+            "type": "adiabatic"
+        },
+        "z_back": {
+            "type": "convective",
+            "h": 48.261412151124,
+            "T_inf": 288.0267942733794
+        },
+        "y_top": {
+            "type": "neumann",
+            "value": 218.11467143069808
+        },
+        "y_bottom": {
+            "type": "convective",
+            "h": 20.259737149092196,
+            "T_inf": 296.99002953880307
+        },
+        "x_left": {
+            "type": "neumann",
+            "value": -866.5824481226527
+        },
+        "x_right": {
+            "type": "dirichlet",
+            "value": 281.359475643385
+        }
+    },
+    "initial_temperature": 341.3645562732237,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {},
+    "thermal_conductivity": 120.0,
+    "density": 3100.0,
+    "specific_heat_capacity": 750.0,
+    "thermal_diffusivity": 5.16e-05,
+    "simulation_time": 86.09346745803317,
+    "time_step": 2.8697822486011058,
+    "random_seed": 820405,
+    "generation_timestamp": "2026-08-06T15:36:58.892081",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

@@ -1,0 +1,56 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "e15c017b-6019-4d49-99f8-0b98b88c2ca5",
+    "material": "Tungsten",
+    "chemical_symbol": "W",
+    "dimension": 3,
+    "geometry": "Cube",
+    "grid_resolution": "18x18x18",
+    "mesh_size": "18x18x18",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "z_front": {
+            "type": "convective",
+            "h": 16.678448745374403,
+            "T_inf": 273.3528555995031
+        },
+        "z_back": {
+            "type": "convective",
+            "h": 25.98754555885355,
+            "T_inf": 298.123213891401
+        },
+        "y_top": {
+            "type": "neumann",
+            "value": -332.83965357256443
+        },
+        "y_bottom": {
+            "type": "dirichlet",
+            "value": 393.1519853338959
+        },
+        "x_left": {
+            "type": "adiabatic"
+        },
+        "x_right": {
+            "type": "convective",
+            "h": 41.04930390606777,
+            "T_inf": 291.2563558012935
+        }
+    },
+    "initial_temperature": 336.5576118097722,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 4126.451644192033
+    },
+    "thermal_conductivity": 173.0,
+    "density": 19250.0,
+    "specific_heat_capacity": 132.0,
+    "thermal_diffusivity": 6.8e-05,
+    "simulation_time": 59.24707256427808,
+    "time_step": 1.4450505503482458,
+    "random_seed": 804441,
+    "generation_timestamp": "2026-08-05T23:28:46.520627",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

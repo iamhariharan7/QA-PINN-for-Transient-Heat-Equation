@@ -1,0 +1,10 @@
+{
+    "qa_pinn": {
+        "Run_Name": "Run_V2",
+        "Timestamp": "2026-08-05T23:55:33.913343"
+    },
+    "pinn": {
+        "Latest_Model_Path": "artifacts/models/pinn/v1/model.pt",
+        "Timestamp": "2026-08-05T23:59:06.665669"
+    }
+}

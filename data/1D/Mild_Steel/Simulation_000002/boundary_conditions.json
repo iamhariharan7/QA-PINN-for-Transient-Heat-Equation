@@ -1,0 +1,10 @@
+{
+    "left": {
+        "type": "neumann",
+        "value": 350.0973027631687
+    },
+    "right": {
+        "type": "neumann",
+        "value": -16.23332214063919
+    }
+}

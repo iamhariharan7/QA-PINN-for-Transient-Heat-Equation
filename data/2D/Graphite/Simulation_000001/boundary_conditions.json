@@ -1,0 +1,19 @@
+{
+    "top": {
+        "type": "convective",
+        "h": 86.26647358335377,
+        "T_inf": 276.419898593884
+    },
+    "bottom": {
+        "type": "convective",
+        "h": 60.61195516650111,
+        "T_inf": 295.2509986322099
+    },
+    "left": {
+        "type": "adiabatic"
+    },
+    "right": {
+        "type": "neumann",
+        "value": 222.7905764155107
+    }
+}

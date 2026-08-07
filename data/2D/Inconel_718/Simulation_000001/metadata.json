@@ -1,0 +1,45 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "c5217b42-7497-48a2-ba2f-fdccc12c90d5",
+    "material": "Inconel 718",
+    "chemical_symbol": "Ni-Cr-Fe",
+    "dimension": 2,
+    "geometry": "Square",
+    "grid_resolution": "67x67",
+    "mesh_size": "67x67",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "top": {
+            "type": "adiabatic"
+        },
+        "bottom": {
+            "type": "dirichlet",
+            "value": 306.369691951095
+        },
+        "left": {
+            "type": "neumann",
+            "value": 486.80349615402633
+        },
+        "right": {
+            "type": "dirichlet",
+            "value": 310.2317310603737
+        }
+    },
+    "initial_temperature": 354.3232407326994,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 6180.59899059914
+    },
+    "thermal_conductivity": 11.4,
+    "density": 8190.0,
+    "specific_heat_capacity": 435.0,
+    "thermal_diffusivity": 3.2e-06,
+    "simulation_time": 54.40857251662503,
+    "time_step": 3.8863266083303594,
+    "random_seed": 114802,
+    "generation_timestamp": "2026-08-06T13:39:28.127459",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

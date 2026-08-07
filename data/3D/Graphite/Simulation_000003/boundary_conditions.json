@@ -1,0 +1,28 @@
+{
+    "z_front": {
+        "type": "dirichlet",
+        "value": 323.4958264538343
+    },
+    "z_back": {
+        "type": "convective",
+        "h": 42.0978942550627,
+        "T_inf": 282.9189428494337
+    },
+    "y_top": {
+        "type": "neumann",
+        "value": 587.9845669772637
+    },
+    "y_bottom": {
+        "type": "dirichlet",
+        "value": 277.5647180760274
+    },
+    "x_left": {
+        "type": "dirichlet",
+        "value": 331.56267379162034
+    },
+    "x_right": {
+        "type": "convective",
+        "h": 28.761573736655144,
+        "T_inf": 297.11531784871016
+    }
+}

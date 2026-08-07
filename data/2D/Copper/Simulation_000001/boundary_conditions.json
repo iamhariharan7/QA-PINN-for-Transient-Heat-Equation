@@ -1,0 +1,17 @@
+{
+    "top": {
+        "type": "dirichlet",
+        "value": 367.2009900950129
+    },
+    "bottom": {
+        "type": "adiabatic"
+    },
+    "left": {
+        "type": "dirichlet",
+        "value": 328.19137646609295
+    },
+    "right": {
+        "type": "dirichlet",
+        "value": 332.04874893190714
+    }
+}

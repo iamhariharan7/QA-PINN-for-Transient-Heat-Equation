@@ -1,0 +1,19 @@
+name: cfd-pinn
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - scikit-learn
+  - pytorch
+  - h5py
+  - pyyaml
+  - tqdm
+  - pytest
+  - pip
+  - pip:
+    - pennylane

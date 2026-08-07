@@ -1,0 +1,47 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "21bbefe0-dd8c-479b-a9cd-1340772e4233",
+    "material": "Stainless Steel 304",
+    "chemical_symbol": "Fe-Cr-Ni",
+    "dimension": 2,
+    "geometry": "Square",
+    "grid_resolution": "35x35",
+    "mesh_size": "35x35",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "top": {
+            "type": "dirichlet",
+            "value": 347.86017338065716
+        },
+        "bottom": {
+            "type": "neumann",
+            "value": -612.0669724416691
+        },
+        "left": {
+            "type": "convective",
+            "h": 45.28362494331817,
+            "T_inf": 280.1770662958239
+        },
+        "right": {
+            "type": "dirichlet",
+            "value": 274.0433442800124
+        }
+    },
+    "initial_temperature": 369.2419216069527,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 4484.156307651014
+    },
+    "thermal_conductivity": 16.2,
+    "density": 8000.0,
+    "specific_heat_capacity": 500.0,
+    "thermal_diffusivity": 4.05e-06,
+    "simulation_time": 35.036435190088305,
+    "time_step": 8.759108797522076,
+    "random_seed": 542635,
+    "generation_timestamp": "2026-08-05T23:28:46.811418",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

@@ -1,0 +1,81 @@
+boundary_conditions:
+  adiabatic_prob: 0.2
+  convective_prob: 0.2
+  dirichlet_prob: 0.4
+  h_convective_range:
+  - 5.0
+  - 100.0
+  neumann_prob: 0.2
+dataset:
+  compress_simulations: false
+  export_formats:
+  - csv
+  - npz
+  - hdf5
+  test_split: 0.15
+  train_split: 0.7
+  val_split: 0.15
+dimensions:
+  prob_1d: 0.33
+  prob_2d: 0.34
+  prob_3d: 0.33
+execution:
+  num_simulations: 5
+  parallel_workers: 4
+  random_seed: 42
+geometry:
+  height_range:
+  - 0.01
+  - 1.0
+  length_range:
+  - 0.01
+  - 1.0
+  width_range:
+  - 0.01
+  - 1.0
+grid:
+  resolution_1d_range:
+  - 50
+  - 200
+  resolution_2d_range:
+  - 20
+  - 100
+  resolution_3d_range:
+  - 10
+  - 50
+heat_source:
+  max_sources: 3
+  power_range:
+  - 100.0
+  - 10000.0
+  prob_has_source: 0.8
+materials:
+- Copper
+- Aluminium 6061
+- Mild Steel
+- Stainless Steel 304
+- Titanium Ti-6Al-4V
+- Inconel 718
+- LI-900 Silica Tile
+- Carbon-Carbon Composite
+- Silicon
+- Alumina
+- Graphite
+- Silicon Carbide
+- Diamond
+- Tungsten
+temperature:
+  ambient_temp_range:
+  - 293.15
+  - 300.0
+  initial_temp_range:
+  - 293.15
+  - 373.15
+time:
+  cfl_safety_factor: 0.9
+  simulation_time_range:
+  - 1.0
+  - 100.0
+visualization:
+  generate_animations: false
+  generate_plots: true

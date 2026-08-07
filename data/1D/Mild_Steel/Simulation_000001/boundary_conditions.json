@@ -1,0 +1,10 @@
+{
+    "left": {
+        "type": "neumann",
+        "value": -109.88618900100164
+    },
+    "right": {
+        "type": "dirichlet",
+        "value": 280.57051591177225
+    }
+}

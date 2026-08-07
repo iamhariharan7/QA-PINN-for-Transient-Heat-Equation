@@ -1,0 +1,10 @@
+{
+    "Dimension": "3D",
+    "Geometry Type": "Cube",
+    "Length": 0.07335733273375006,
+    "Width": 0.5716273255263482,
+    "Height": 0.38428894815042447,
+    "Grid Resolution": 39,
+    "Mesh Resolution": "39x39x39",
+    "Coordinate System": "Cartesian"
+}

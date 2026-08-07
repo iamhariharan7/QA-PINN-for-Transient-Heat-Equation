@@ -1,0 +1,15 @@
+model:
+  supported_architectures:
+    - CNN
+    - PINN
+    - QA-PINN
+  checkpointing:
+    enabled: true
+    save_best_only: false
+  export:
+    formats:
+      - pth
+      - pt
+      - onnx
+      - torchscript
+    onnx_opset_version: 14

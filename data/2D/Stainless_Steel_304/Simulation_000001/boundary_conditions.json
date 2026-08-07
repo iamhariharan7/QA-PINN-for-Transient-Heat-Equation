@@ -1,0 +1,19 @@
+{
+    "top": {
+        "type": "dirichlet",
+        "value": 347.86017338065716
+    },
+    "bottom": {
+        "type": "neumann",
+        "value": -612.0669724416691
+    },
+    "left": {
+        "type": "convective",
+        "h": 45.28362494331817,
+        "T_inf": 280.1770662958239
+    },
+    "right": {
+        "type": "dirichlet",
+        "value": 274.0433442800124
+    }
+}

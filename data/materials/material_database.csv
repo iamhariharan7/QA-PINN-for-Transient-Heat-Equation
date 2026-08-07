@@ -1,0 +1,15 @@
+name,chemical_symbol,common_name,aliases,category,type,k,rho,cp,alpha,applications
+Copper,Cu,Copper,"['Pure Copper', 'Cu']",Pure Metal,Isotropic,398.0,8960.0,385.0,0.000115,"['Heat sinks', 'Thermal conductors']"
+Aluminium 6061,Al 6061,Al 6061,"['Aluminum 6061', 'AA6061']",Aluminum Alloy,Isotropic,167.0,2700.0,896.0,6.9e-05,"['Aerospace components', 'Heat exchangers']"
+Mild Steel,Fe-C,Mild Steel,"['Low Carbon Steel', 'MS']",Carbon Steel,Isotropic,45.0,7850.0,473.0,1.2e-05,"['Structural applications', 'Pipes']"
+Stainless Steel 304,Fe-Cr-Ni,SS304,"['304 SS', 'A2 Stainless']",Stainless Steel,Isotropic,16.2,8000.0,500.0,4.05e-06,"['Food processing', 'Chemical containers']"
+Titanium Ti-6Al-4V,Ti-6Al-4V,Ti64,['Grade 5 Titanium'],Titanium Alloy,Isotropic,6.7,4430.0,526.0,2.87e-06,"['Aerospace', 'Medical implants']"
+Inconel 718,Ni-Cr-Fe,IN718,['Alloy 718'],Superalloy,Isotropic,11.4,8190.0,435.0,3.2e-06,"['Gas turbine engines', 'Cryogenic tanks']"
+LI-900 Silica Tile,SiO2,Silica Tile,['LI-900'],Thermal Insulator,Isotropic,0.048,144.0,640.0,5.2e-07,['Space shuttle thermal protection']
+Carbon-Carbon Composite,C/C Composite,RCC,['Reinforced Carbon-Carbon'],Carbon Composite,Anisotropic,"[120.0, 120.0, 40.0]",1700.0,710.0,"[9.9e-05, 9.9e-05, 3.3e-05]","['Re-entry vehicle nose cones', 'High-performance brakes']"
+Silicon,Si,Silicon,['Mono-crystalline Silicon'],Semiconductor,Isotropic,149.0,2329.0,712.0,8.98e-05,"['Integrated circuits', 'Solar cells']"
+Alumina,Al2O3,Alumina,['Aluminum Oxide'],Advanced Ceramic,Isotropic,30.0,3950.0,880.0,8.63e-06,"['Electrical insulators', 'Cutting tools']"
+Graphite,C,Graphite,['Pyrolytic Graphite'],Carbon Material,Anisotropic,"[1950.0, 1950.0, 5.7]",2220.0,710.0,"[0.0012, 0.0012, 3.6e-06]","['Thermal management', 'Electrodes']"
+Silicon Carbide,SiC,SiC,['Carborundum'],Advanced Ceramic,Isotropic,120.0,3100.0,750.0,5.16e-05,"['High-temperature electronics', 'Abrasives']"
+Diamond,C,Diamond,['Synthetic Diamond'],Carbon Material,Isotropic,2000.0,3500.0,509.0,0.00112,"['Heat spreaders', 'Cutting tools']"
+Tungsten,W,Tungsten,['Wolfram'],Refractory Metal,Isotropic,173.0,19250.0,132.0,6.8e-05,"['Filaments', 'High-temperature components']"

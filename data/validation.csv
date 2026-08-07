@@ -1,0 +1,5 @@
+Simulation ID,UUID,Material,Dimension,Geometry,Boundary Condition,Heat Source,Grid Size,Simulation Time,Output Path,Creation Time,Validation Status,Quality Score
+Simulation_000001,c9a69309-4a5f-46f1-b5ef-9fcb426290e1,Alumina,3D,Cube,Mixed,Yes,39x39x39,64.48389114981964,data\3D\Alumina\Simulation_000001,2026-08-06T16:14:28.731940,PASS,100
+Simulation_000001,1aa75670-c0fb-44a0-b92e-678e87364555,Silicon Carbide,1D,Line,Mixed,Yes,128,61.60068156482664,data\1D\Silicon_Carbide\Simulation_000001,2026-08-06T15:36:55.141110,PASS,100
+Simulation_000001,c3a2c352-4a9f-43cb-9fb6-a15c065fe366,Copper,2D,Square,Mixed,Yes,37x37,77.86113704520496,data\2D\Copper\Simulation_000001,2026-08-06T15:36:58.706482,PASS,100
+Simulation_000001,3e6d01ff-9de1-47ad-b2db-53043b5df36c,Silicon Carbide,3D,Cube,Mixed,No,18x18x18,86.09346745803317,data\3D\Silicon_Carbide\Simulation_000001,2026-08-06T15:36:58.892081,PASS,100

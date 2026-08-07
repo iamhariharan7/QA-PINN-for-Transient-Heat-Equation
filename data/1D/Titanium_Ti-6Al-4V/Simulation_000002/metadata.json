@@ -1,0 +1,37 @@
+{
+    "simulation_id": "Simulation_000002",
+    "uuid": "b7830ceb-fedc-4244-8c6a-df0cbd440e9c",
+    "material": "Titanium Ti-6Al-4V",
+    "chemical_symbol": "Ti-6Al-4V",
+    "dimension": 1,
+    "geometry": "Line",
+    "grid_resolution": "190",
+    "mesh_size": "190",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "left": {
+            "type": "adiabatic"
+        },
+        "right": {
+            "type": "dirichlet",
+            "value": 345.00087681079066
+        }
+    },
+    "initial_temperature": 365.7213679746237,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 5462.788007676984
+    },
+    "thermal_conductivity": 6.7,
+    "density": 4430.0,
+    "specific_heat_capacity": 526.0,
+    "thermal_diffusivity": 2.87e-06,
+    "simulation_time": 61.65440081168364,
+    "time_step": 0.6422333417883712,
+    "random_seed": 833399,
+    "generation_timestamp": "2026-08-06T16:18:33.701717",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

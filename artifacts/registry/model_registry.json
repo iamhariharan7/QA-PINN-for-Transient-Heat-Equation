@@ -1,0 +1,11 @@
+{
+    "qa_pinn_Run_V2": {
+        "Architecture": "qa_pinn",
+        "Run_Name": "Run_V2",
+        "Creation_Date": "2026-08-05T23:55:33.913136",
+        "Modification_Date": "2026-08-05T23:55:33.913142",
+        "Status": "best",
+        "Hash": "9e6d1822c941485a97aa57cf991482ba04b624b386a53998fcdceb26a25a4e56",
+        "Dataset": "1.0"
+    }
+}

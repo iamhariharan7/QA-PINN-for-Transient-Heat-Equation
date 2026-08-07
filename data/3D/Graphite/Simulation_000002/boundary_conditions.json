@@ -1,0 +1,23 @@
+{
+    "z_front": {
+        "type": "convective",
+        "h": 6.880372755362024,
+        "T_inf": 278.2351637770828
+    },
+    "z_back": {
+        "type": "adiabatic"
+    },
+    "y_top": {
+        "type": "adiabatic"
+    },
+    "y_bottom": {
+        "type": "adiabatic"
+    },
+    "x_left": {
+        "type": "adiabatic"
+    },
+    "x_right": {
+        "type": "dirichlet",
+        "value": 371.7232444883641
+    }
+}

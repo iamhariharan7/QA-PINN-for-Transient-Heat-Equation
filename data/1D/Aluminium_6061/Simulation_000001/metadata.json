@@ -1,0 +1,39 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "b81f32ce-b4aa-4702-8ecb-ebbf7fcee350",
+    "material": "Aluminium 6061",
+    "chemical_symbol": "Al 6061",
+    "dimension": 1,
+    "geometry": "Line",
+    "grid_resolution": "177",
+    "mesh_size": "177",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "left": {
+            "type": "convective",
+            "h": 77.86184010959309,
+            "T_inf": 282.21703348314367
+        },
+        "right": {
+            "type": "dirichlet",
+            "value": 361.30752464567803
+        }
+    },
+    "initial_temperature": 366.6631155574883,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 9998.991122186619
+    },
+    "thermal_conductivity": 167.0,
+    "density": 2700.0,
+    "specific_heat_capacity": 896.0,
+    "thermal_diffusivity": 6.9e-05,
+    "simulation_time": 98.77589724513105,
+    "time_step": 0.008601175308701763,
+    "random_seed": 720868,
+    "generation_timestamp": "2026-08-06T15:36:54.649843",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

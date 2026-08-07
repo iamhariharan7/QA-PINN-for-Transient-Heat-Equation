@@ -1,0 +1,16 @@
+{
+    "top": {
+        "type": "adiabatic"
+    },
+    "bottom": {
+        "type": "neumann",
+        "value": -527.1531800590044
+    },
+    "left": {
+        "type": "neumann",
+        "value": -685.7689481359189
+    },
+    "right": {
+        "type": "adiabatic"
+    }
+}

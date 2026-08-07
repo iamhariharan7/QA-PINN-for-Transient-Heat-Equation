@@ -1,0 +1,10 @@
+{
+    "left": {
+        "type": "dirichlet",
+        "value": 289.5823921744972
+    },
+    "right": {
+        "type": "dirichlet",
+        "value": 343.8094755610191
+    }
+}

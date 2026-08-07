@@ -1,0 +1,211 @@
+- aliases:
+  - Pure Copper
+  - Cu
+  alpha: 0.000115
+  applications:
+  - Heat sinks
+  - Thermal conductors
+  category: Pure Metal
+  chemical_symbol: Cu
+  common_name: Copper
+  cp: 385.0
+  k: 398.0
+  name: Copper
+  rho: 8960.0
+  type: Isotropic
+- aliases:
+  - Aluminum 6061
+  - AA6061
+  alpha: 6.9e-05
+  applications:
+  - Aerospace components
+  - Heat exchangers
+  category: Aluminum Alloy
+  chemical_symbol: Al 6061
+  common_name: Al 6061
+  cp: 896.0
+  k: 167.0
+  name: Aluminium 6061
+  rho: 2700.0
+  type: Isotropic
+- aliases:
+  - Low Carbon Steel
+  - MS
+  alpha: 1.2e-05
+  applications:
+  - Structural applications
+  - Pipes
+  category: Carbon Steel
+  chemical_symbol: Fe-C
+  common_name: Mild Steel
+  cp: 473.0
+  k: 45.0
+  name: Mild Steel
+  rho: 7850.0
+  type: Isotropic
+- aliases:
+  - 304 SS
+  - A2 Stainless
+  alpha: 4.05e-06
+  applications:
+  - Food processing
+  - Chemical containers
+  category: Stainless Steel
+  chemical_symbol: Fe-Cr-Ni
+  common_name: SS304
+  cp: 500.0
+  k: 16.2
+  name: Stainless Steel 304
+  rho: 8000.0
+  type: Isotropic
+- aliases:
+  - Grade 5 Titanium
+  alpha: 2.87e-06
+  applications:
+  - Aerospace
+  - Medical implants
+  category: Titanium Alloy
+  chemical_symbol: Ti-6Al-4V
+  common_name: Ti64
+  cp: 526.0
+  k: 6.7
+  name: Titanium Ti-6Al-4V
+  rho: 4430.0
+  type: Isotropic
+- aliases:
+  - Alloy 718
+  alpha: 3.2e-06
+  applications:
+  - Gas turbine engines
+  - Cryogenic tanks
+  category: Superalloy
+  chemical_symbol: Ni-Cr-Fe
+  common_name: IN718
+  cp: 435.0
+  k: 11.4
+  name: Inconel 718
+  rho: 8190.0
+  type: Isotropic
+- aliases:
+  - LI-900
+  alpha: 5.2e-07
+  applications:
+  - Space shuttle thermal protection
+  category: Thermal Insulator
+  chemical_symbol: SiO2
+  common_name: Silica Tile
+  cp: 640.0
+  k: 0.048
+  name: LI-900 Silica Tile
+  rho: 144.0
+  type: Isotropic
+- aliases:
+  - Reinforced Carbon-Carbon
+  alpha:
+  - 9.9e-05
+  - 9.9e-05
+  - 3.3e-05
+  applications:
+  - Re-entry vehicle nose cones
+  - High-performance brakes
+  category: Carbon Composite
+  chemical_symbol: C/C Composite
+  common_name: RCC
+  cp: 710.0
+  k:
+  - 120.0
+  - 120.0
+  - 40.0
+  name: Carbon-Carbon Composite
+  rho: 1700.0
+  type: Anisotropic
+- aliases:
+  - Mono-crystalline Silicon
+  alpha: 8.98e-05
+  applications:
+  - Integrated circuits
+  - Solar cells
+  category: Semiconductor
+  chemical_symbol: Si
+  common_name: Silicon
+  cp: 712.0
+  k: 149.0
+  name: Silicon
+  rho: 2329.0
+  type: Isotropic
+- aliases:
+  - Aluminum Oxide
+  alpha: 8.63e-06
+  applications:
+  - Electrical insulators
+  - Cutting tools
+  category: Advanced Ceramic
+  chemical_symbol: Al2O3
+  common_name: Alumina
+  cp: 880.0
+  k: 30.0
+  name: Alumina
+  rho: 3950.0
+  type: Isotropic
+- aliases:
+  - Pyrolytic Graphite
+  alpha:
+  - 0.0012
+  - 0.0012
+  - 3.6e-06
+  applications:
+  - Thermal management
+  - Electrodes
+  category: Carbon Material
+  chemical_symbol: C
+  common_name: Graphite
+  cp: 710.0
+  k:
+  - 1950.0
+  - 1950.0
+  - 5.7
+  name: Graphite
+  rho: 2220.0
+  type: Anisotropic
+- aliases:
+  - Carborundum
+  alpha: 5.16e-05
+  applications:
+  - High-temperature electronics
+  - Abrasives
+  category: Advanced Ceramic
+  chemical_symbol: SiC
+  common_name: SiC
+  cp: 750.0
+  k: 120.0
+  name: Silicon Carbide
+  rho: 3100.0
+  type: Isotropic
+- aliases:
+  - Synthetic Diamond
+  alpha: 0.00112
+  applications:
+  - Heat spreaders
+  - Cutting tools
+  category: Carbon Material
+  chemical_symbol: C
+  common_name: Diamond
+  cp: 509.0
+  k: 2000.0
+  name: Diamond
+  rho: 3500.0
+  type: Isotropic
+- aliases:
+  - Wolfram
+  alpha: 6.8e-05
+  applications:
+  - Filaments
+  - High-temperature components
+  category: Refractory Metal
+  chemical_symbol: W
+  common_name: Tungsten
+  cp: 132.0
+  k: 173.0
+  name: Tungsten
+  rho: 19250.0
+  type: Isotropic

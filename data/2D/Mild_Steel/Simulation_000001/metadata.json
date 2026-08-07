@@ -1,0 +1,49 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "ba9c6670-c288-4e76-8d14-65f2c6808110",
+    "material": "Mild Steel",
+    "chemical_symbol": "Fe-C",
+    "dimension": 2,
+    "geometry": "Square",
+    "grid_resolution": "28x28",
+    "mesh_size": "28x28",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "top": {
+            "type": "convective",
+            "h": 94.94122202749539,
+            "T_inf": 298.99554159048137
+        },
+        "bottom": {
+            "type": "convective",
+            "h": 93.84894681583734,
+            "T_inf": 290.7522728023992
+        },
+        "left": {
+            "type": "dirichlet",
+            "value": 393.49532730820613
+        },
+        "right": {
+            "type": "convective",
+            "h": 97.85871339670382,
+            "T_inf": 296.6172839413939
+        }
+    },
+    "initial_temperature": 350.06191231460394,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "point",
+        "power": 7460.586160772917
+    },
+    "thermal_conductivity": 45.0,
+    "density": 7850.0,
+    "specific_heat_capacity": 473.0,
+    "thermal_diffusivity": 1.2e-05,
+    "simulation_time": 8.604454805570843,
+    "time_step": 8.604454805570843,
+    "random_seed": 247668,
+    "generation_timestamp": "2026-08-07T00:10:41.720024",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

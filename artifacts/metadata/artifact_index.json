@@ -1,0 +1,9 @@
+[
+    {
+        "Timestamp": "2026-08-05T23:51:06.994959",
+        "Architecture": "pinn",
+        "Run_Name": "Run_Artifact",
+        "Dataset": "1.0.0",
+        "RMSE": 0.05
+    }
+]

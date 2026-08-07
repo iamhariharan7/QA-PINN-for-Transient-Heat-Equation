@@ -1,0 +1,55 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "ca172670-8c45-4253-9dac-e170fde412bc",
+    "material": "Silicon",
+    "chemical_symbol": "Si",
+    "dimension": 3,
+    "geometry": "Cube",
+    "grid_resolution": "16x16x16",
+    "mesh_size": "16x16x16",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "z_front": {
+            "type": "dirichlet",
+            "value": 355.39496424552004
+        },
+        "z_back": {
+            "type": "neumann",
+            "value": 190.25392964951948
+        },
+        "y_top": {
+            "type": "dirichlet",
+            "value": 329.4805101191615
+        },
+        "y_bottom": {
+            "type": "convective",
+            "h": 95.48356716195738,
+            "T_inf": 297.65434065031866
+        },
+        "x_left": {
+            "type": "dirichlet",
+            "value": 363.6617026286286
+        },
+        "x_right": {
+            "type": "dirichlet",
+            "value": 321.9719312077218
+        }
+    },
+    "initial_temperature": 304.13444904596656,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 1030.6468782221582
+    },
+    "thermal_conductivity": 149.0,
+    "density": 2329.0,
+    "specific_heat_capacity": 712.0,
+    "thermal_diffusivity": 8.98e-05,
+    "simulation_time": 77.00875683449743,
+    "time_step": 0.015668109223702428,
+    "random_seed": 708910,
+    "generation_timestamp": "2026-08-06T16:18:33.708932",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

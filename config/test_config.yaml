@@ -1,0 +1,75 @@
+domain:
+  L: 1.0          # Length of the rod (m)
+  T: 1.0          # Total simulation time (s)
+  Nx: 30          # Number of spatial grid points
+  Nt: 30          # Number of temporal grid points
+
+conditions:
+  ic_type: "sin"  # Initial condition type (e.g., sin(pi * x))
+  bc_left: 0.0    # Boundary condition at x=0
+  bc_right: 0.0   # Boundary condition at x=L
+
+models:
+  pinn:
+    epochs: 1
+    lr: 0.001
+    n_train: 5000
+  qa_pinn:
+    epochs: 1
+    lr: 0.005
+    n_qubits: 4
+    n_train: 100
+  cnn:
+    epochs: 1
+    lr: 0.001
+    n_samples: 10
+
+material_tolerance: 1e-4  # Tolerance for calculated alpha vs excel alpha
+
+domain_2d:
+  Lx: 1.0
+  Ly: 1.0
+  T: 1.0
+  Nx: 25
+  Ny: 25
+  Nt: 20
+
+models_2d:
+  pinn_2d:
+    epochs: 1
+    lr: 0.001
+    n_train: 4000
+  qa_pinn_2d:
+    epochs: 1
+    lr: 0.005
+    n_qubits: 4
+    n_train: 100
+  cnn_2d:
+    epochs: 1
+    lr: 0.001
+    n_samples: 10
+
+domain_3d:
+  Lx: 1.0
+  Ly: 1.0
+  Lz: 1.0
+  T: 1.0
+  Nx: 10
+  Ny: 10
+  Nz: 10
+  Nt: 10
+
+models_3d:
+  pinn_3d:
+    epochs: 1
+    lr: 0.001
+    n_train: 2500
+  qa_pinn_3d:
+    epochs: 1
+    lr: 0.005
+    n_qubits: 4
+    n_train: 50
+  cnn_3d:
+    epochs: 1
+    lr: 0.001
+    n_samples: 10

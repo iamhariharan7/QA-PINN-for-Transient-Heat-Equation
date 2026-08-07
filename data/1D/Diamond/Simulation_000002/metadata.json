@@ -1,0 +1,37 @@
+{
+    "simulation_id": "Simulation_000002",
+    "uuid": "3b1069e8-0671-4a3b-baff-3adbdd396245",
+    "material": "Diamond",
+    "chemical_symbol": "C",
+    "dimension": 1,
+    "geometry": "Line",
+    "grid_resolution": "100",
+    "mesh_size": "100",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "left": {
+            "type": "dirichlet",
+            "value": 381.8586282778366
+        },
+        "right": {
+            "type": "adiabatic"
+        }
+    },
+    "initial_temperature": 328.091708789909,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "point",
+        "power": 4763.4990752055355
+    },
+    "thermal_conductivity": 2000.0,
+    "density": 3500.0,
+    "specific_heat_capacity": 509.0,
+    "thermal_diffusivity": 0.00112,
+    "simulation_time": 67.29106980032982,
+    "time_step": 0.001456548189361887,
+    "random_seed": 209845,
+    "generation_timestamp": "2026-08-07T00:10:41.720780",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

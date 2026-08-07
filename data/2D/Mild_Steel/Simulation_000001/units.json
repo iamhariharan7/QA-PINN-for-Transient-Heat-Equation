@@ -1,0 +1,8 @@
+{
+    "Temperature": "Kelvin",
+    "Length": "Meters",
+    "Time": "Seconds",
+    "Thermal Conductivity": "W/m\u00b7K",
+    "Density": "kg/m3",
+    "Heat Capacity": "J/kg\u00b7K"
+}

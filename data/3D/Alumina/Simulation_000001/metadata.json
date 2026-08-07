@@ -1,0 +1,55 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "c9a69309-4a5f-46f1-b5ef-9fcb426290e1",
+    "material": "Alumina",
+    "chemical_symbol": "Al2O3",
+    "dimension": 3,
+    "geometry": "Cube",
+    "grid_resolution": "39x39x39",
+    "mesh_size": "39x39x39",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "z_front": {
+            "type": "dirichlet",
+            "value": 319.94580024176537
+        },
+        "z_back": {
+            "type": "convective",
+            "h": 94.46297605461444,
+            "T_inf": 297.26775794958945
+        },
+        "y_top": {
+            "type": "dirichlet",
+            "value": 319.8015300374207
+        },
+        "y_bottom": {
+            "type": "dirichlet",
+            "value": 324.5118541634485
+        },
+        "x_left": {
+            "type": "dirichlet",
+            "value": 310.2562730124969
+        },
+        "x_right": {
+            "type": "dirichlet",
+            "value": 345.68188845383463
+        }
+    },
+    "initial_temperature": 302.40738181383136,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "point",
+        "power": 5776.594929588585
+    },
+    "thermal_conductivity": 30.0,
+    "density": 3950.0,
+    "specific_heat_capacity": 880.0,
+    "thermal_diffusivity": 8.63e-06,
+    "simulation_time": 64.48389114981964,
+    "time_step": 0.1747530925469367,
+    "random_seed": 50120,
+    "generation_timestamp": "2026-08-06T16:14:28.731940",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

@@ -1,0 +1,6 @@
+Simulation ID,UUID,Material,Dimension,Geometry,Boundary Condition,Heat Source,Grid Size,Simulation Time,Output Path,Creation Time,Validation Status,Quality Score
+Simulation_000001,ba9c6670-c288-4e76-8d14-65f2c6808110,Mild Steel,2D,Square,Mixed,Yes,28x28,8.604454805570843,data\2D\Mild_Steel\Simulation_000001,2026-08-07T00:10:41.720024,PASS,100
+Simulation_000001,b81f32ce-b4aa-4702-8ecb-ebbf7fcee350,Aluminium 6061,1D,Line,Mixed,Yes,177,98.77589724513105,data\1D\Aluminium_6061\Simulation_000001,2026-08-06T15:36:54.649843,PASS,100
+Simulation_000001,e628313b-3e91-45ed-aae0-b96d48679600,Graphite,2D,Square,Mixed,Yes,81x81,3.1488392077208824,data\2D\Graphite\Simulation_000001,2026-08-07T00:10:42.291720,PASS,100
+Simulation_000001,272d44a8-96f0-45a4-a09f-7402228a162b,Silicon,1D,Line,Mixed,Yes,97,46.059404230338615,data\1D\Silicon\Simulation_000001,2026-08-05T23:28:46.563287,PASS,100
+Simulation_000002,5bc69793-9c6e-4ddd-80cd-926311b54d08,Graphite,3D,Cube,Mixed,No,42x42x42,28.64530678066776,data\3D\Graphite\Simulation_000002,2026-08-06T15:36:55.319493,PASS,100

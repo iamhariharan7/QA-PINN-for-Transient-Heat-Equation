@@ -1,0 +1,45 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "c3a2c352-4a9f-43cb-9fb6-a15c065fe366",
+    "material": "Copper",
+    "chemical_symbol": "Cu",
+    "dimension": 2,
+    "geometry": "Square",
+    "grid_resolution": "37x37",
+    "mesh_size": "37x37",
+    "solver_type": "FVM (Explicit)",
+    "boundary_conditions": {
+        "top": {
+            "type": "dirichlet",
+            "value": 367.2009900950129
+        },
+        "bottom": {
+            "type": "adiabatic"
+        },
+        "left": {
+            "type": "dirichlet",
+            "value": 328.19137646609295
+        },
+        "right": {
+            "type": "dirichlet",
+            "value": 332.04874893190714
+        }
+    },
+    "initial_temperature": 373.0629217662218,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "point",
+        "power": 1033.598972996877
+    },
+    "thermal_conductivity": 398.0,
+    "density": 8960.0,
+    "specific_heat_capacity": 385.0,
+    "thermal_diffusivity": 0.000115,
+    "simulation_time": 77.86113704520496,
+    "time_step": 0.2639360577803558,
+    "random_seed": 524331,
+    "generation_timestamp": "2026-08-06T15:36:58.706482",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

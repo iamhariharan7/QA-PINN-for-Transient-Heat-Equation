@@ -1,0 +1,44 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "7f8d8659-3bd0-45ea-9a3e-c905130a9a3a",
+    "material": "Alumina",
+    "chemical_symbol": "Al2O3",
+    "dimension": 2,
+    "geometry": "Square",
+    "grid_resolution": "70x70",
+    "mesh_size": "70x70",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "top": {
+            "type": "adiabatic"
+        },
+        "bottom": {
+            "type": "neumann",
+            "value": -206.25108057543184
+        },
+        "left": {
+            "type": "neumann",
+            "value": -974.8409430989584
+        },
+        "right": {
+            "type": "adiabatic"
+        }
+    },
+    "initial_temperature": 294.0630171542716,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "distributed",
+        "power": 5758.256521439884
+    },
+    "thermal_conductivity": 30.0,
+    "density": 3950.0,
+    "specific_heat_capacity": 880.0,
+    "thermal_diffusivity": 8.63e-06,
+    "simulation_time": 43.72887107358674,
+    "time_step": 2.733054442099171,
+    "random_seed": 538800,
+    "generation_timestamp": "2026-08-06T13:39:26.503886",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

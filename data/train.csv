@@ -1,0 +1,22 @@
+Simulation ID,UUID,Material,Dimension,Geometry,Boundary Condition,Heat Source,Grid Size,Simulation Time,Output Path,Creation Time,Validation Status,Quality Score
+Simulation_000003,d07f634b-efae-4af2-9b1c-4359c216a94c,Graphite,3D,Cube,Mixed,Yes,11x11x11,64.9893497174935,data\3D\Graphite\Simulation_000003,2026-08-06T16:14:28.681564,PASS,100
+Simulation_000001,16845387-2c63-4ae5-8346-65d5e9680cc8,Mild Steel,1D,Line,Mixed,Yes,165,54.18009402094454,data\1D\Mild_Steel\Simulation_000001,2026-08-05T23:28:47.092600,PASS,100
+Simulation_000001,47afc24c-c5fd-41e4-bf66-dc8bfe6424de,Diamond,2D,Square,Mixed,Yes,24x24,44.487058166485475,data\2D\Diamond\Simulation_000001,2026-08-06T16:18:33.697621,PASS,100
+Simulation_000001,499023dc-a846-43ae-b2b6-08e58e82c0a0,Silicon Carbide,2D,Square,Mixed,Yes,80x80,50.47949890827475,data\2D\Silicon_Carbide\Simulation_000001,2026-08-07T00:10:41.772107,PASS,100
+Simulation_000002,d1b9765a-a686-415e-b00d-6e458b38dbc9,Mild Steel,1D,Line,Mixed,Yes,155,29.57527975261548,data\1D\Mild_Steel\Simulation_000002,2026-08-06T13:39:27.715057,PASS,100
+Simulation_000001,fd1ad0fd-56bb-462e-aae5-1e862dea9d3c,Aluminium 6061,2D,Square,Mixed,Yes,47x47,38.79347079957477,data\2D\Aluminium_6061\Simulation_000001,2026-08-06T13:39:28.476471,PASS,100
+Simulation_000001,80d45562-0988-45d3-8f4d-b6fd173fcc50,Graphite,3D,Cube,Mixed,Yes,43x43x43,16.221868170275908,data\3D\Graphite\Simulation_000001,2026-08-06T13:39:23.249888,PASS,100
+Simulation_000001,ca172670-8c45-4253-9dac-e170fde412bc,Silicon,3D,Cube,Mixed,Yes,16x16x16,77.00875683449743,data\3D\Silicon\Simulation_000001,2026-08-06T16:18:33.708932,PASS,100
+Simulation_000002,728e85bf-3e6a-4055-8d80-bee6c84c28e0,Alumina,1D,Line,Mixed,Yes,165,61.27166389271018,data\1D\Alumina\Simulation_000002,2026-08-06T16:18:34.077667,PASS,100
+Simulation_000002,3b1069e8-0671-4a3b-baff-3adbdd396245,Diamond,1D,Line,Mixed,Yes,100,67.29106980032982,data\1D\Diamond\Simulation_000002,2026-08-07T00:10:41.720780,PASS,100
+Simulation_000001,e15c017b-6019-4d49-99f8-0b98b88c2ca5,Tungsten,3D,Cube,Mixed,Yes,18x18x18,59.24707256427808,data\3D\Tungsten\Simulation_000001,2026-08-05T23:28:46.520627,PASS,100
+Simulation_000002,b7830ceb-fedc-4244-8c6a-df0cbd440e9c,Titanium Ti-6Al-4V,1D,Line,Mixed,Yes,190,61.65440081168364,data\1D\Titanium_Ti-6Al-4V\Simulation_000002,2026-08-06T16:18:33.701717,PASS,100
+Simulation_000002,cc328cc9-6354-4d14-83ba-69b86954d16f,Aluminium 6061,2D,Square,Mixed,Yes,80x80,77.02537176217506,data\2D\Aluminium_6061\Simulation_000002,2026-08-06T16:14:28.654299,PASS,100
+Simulation_000001,a084c7fc-fe45-4781-bac8-25a9e8604c65,Tungsten,2D,Square,Mixed,Yes,97x97,70.92933982324998,data\2D\Tungsten\Simulation_000001,2026-08-07T00:10:41.744350,PASS,100
+Simulation_000001,c5217b42-7497-48a2-ba2f-fdccc12c90d5,Inconel 718,2D,Square,Mixed,Yes,67x67,54.40857251662503,data\2D\Inconel_718\Simulation_000001,2026-08-06T13:39:28.127459,PASS,100
+Simulation_000001,7f8d8659-3bd0-45ea-9a3e-c905130a9a3a,Alumina,2D,Square,Mixed,Yes,70x70,43.72887107358674,data\2D\Alumina\Simulation_000001,2026-08-06T13:39:26.503886,PASS,100
+Simulation_000001,21bbefe0-dd8c-479b-a9cd-1340772e4233,Stainless Steel 304,2D,Square,Mixed,Yes,35x35,35.036435190088305,data\2D\Stainless_Steel_304\Simulation_000001,2026-08-05T23:28:46.811418,PASS,100
+Simulation_000001,091e95f7-0e90-45eb-82d1-492435014851,Titanium Ti-6Al-4V,1D,Line,Mixed,Yes,52,84.95049744866547,data\1D\Titanium_Ti-6Al-4V\Simulation_000001,2026-08-06T16:14:28.679157,PASS,100
+Simulation_000001,1604de2c-8797-4246-8cd3-230fc1ca30e0,Alumina,1D,Line,Mixed,Yes,93,73.80248500587066,data\1D\Alumina\Simulation_000001,2026-08-05T23:28:46.963681,PASS,100
+Simulation_000001,5f30b9c5-a12f-4037-8faa-179d13b31538,Diamond,1D,Line,Mixed,Yes,127,82.43675137491175,data\1D\Diamond\Simulation_000001,2026-08-06T16:18:33.719341,PASS,100
+Simulation_000001,bff99f6e-389b-403c-b49c-cbe897e35ee6,Copper,3D,Cube,Mixed,No,22x22x22,92.06679949580864,data\3D\Copper\Simulation_000001,2026-08-06T16:14:28.652985,PASS,100

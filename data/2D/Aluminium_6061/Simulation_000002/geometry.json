@@ -1,0 +1,10 @@
+{
+    "Dimension": "2D",
+    "Geometry Type": "Square",
+    "Length": 0.31111660657690765,
+    "Width": 0.20513802301342385,
+    "Height": 0.8399717632689365,
+    "Grid Resolution": 80,
+    "Mesh Resolution": "80x80",
+    "Coordinate System": "Cartesian"
+}

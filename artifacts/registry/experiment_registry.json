@@ -1,0 +1,25 @@
+{
+    "run_001": {
+        "experiment_id": "run_001",
+        "folder": "run_001_2026-08-06_00-03-08",
+        "name": "Test_Run_Phase11",
+        "model": "QA-PINN",
+        "dataset": "v1",
+        "material": "Copper",
+        "dimension": "2D",
+        "status": "Completed",
+        "last_updated": "2026-08-06T00:03:08.654294",
+        "rmse": 0.001
+    },
+    "run_002": {
+        "experiment_id": "run_002",
+        "folder": "run_002_2026-08-06_00-06-32",
+        "name": "Test_Run_Phase12",
+        "model": "QA-PINN",
+        "dataset": "v1",
+        "material": "Unknown",
+        "dimension": "Unknown",
+        "status": "Running",
+        "last_updated": "2026-08-06T00:06:32.572674"
+    }
+}

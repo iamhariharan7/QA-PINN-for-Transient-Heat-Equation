@@ -1,0 +1,9 @@
+{
+    "left": {
+        "type": "adiabatic"
+    },
+    "right": {
+        "type": "dirichlet",
+        "value": 300.4663160869616
+    }
+}

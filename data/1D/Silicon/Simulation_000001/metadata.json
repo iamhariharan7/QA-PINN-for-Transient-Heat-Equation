@@ -1,0 +1,37 @@
+{
+    "simulation_id": "Simulation_000001",
+    "uuid": "272d44a8-96f0-45a4-a09f-7402228a162b",
+    "material": "Silicon",
+    "chemical_symbol": "Si",
+    "dimension": 1,
+    "geometry": "Line",
+    "grid_resolution": "97",
+    "mesh_size": "97",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "left": {
+            "type": "adiabatic"
+        },
+        "right": {
+            "type": "dirichlet",
+            "value": 353.52793335617974
+        }
+    },
+    "initial_temperature": 369.28626261584475,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "point",
+        "power": 2239.5165796135334
+    },
+    "thermal_conductivity": 149.0,
+    "density": 2329.0,
+    "specific_heat_capacity": 712.0,
+    "thermal_diffusivity": 8.98e-05,
+    "simulation_time": 46.059404230338615,
+    "time_step": 0.04054525020276287,
+    "random_seed": 260562,
+    "generation_timestamp": "2026-08-05T23:28:46.563287",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

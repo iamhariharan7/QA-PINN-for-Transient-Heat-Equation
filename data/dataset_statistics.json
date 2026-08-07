@@ -1,0 +1,29 @@
+{
+    "Total Simulations": 30,
+    "Total Materials": 20,
+    "Simulation Count per Material": {
+        "Alumina": 4,
+        "Graphite": 4,
+        "Aluminium 6061": 3,
+        "Diamond": 3,
+        "Mild Steel": 3,
+        "Silicon Carbide": 3,
+        "Silicon": 2,
+        "Titanium Ti-6Al-4V": 2,
+        "Copper": 2,
+        "Tungsten": 2,
+        "Inconel 718": 1,
+        "Stainless Steel 304": 1
+    },
+    "Simulation Count per Dimension": {
+        "1D": 11,
+        "2D": 11,
+        "3D": 8
+    },
+    "Average Temperature": 337.5207765987794,
+    "Maximum Temperature": 4962.2531244871625,
+    "Minimum Temperature": 274.0433442800124,
+    "Average Runtime": 57.16192622058197,
+    "Latest Simulation": "2026-08-07T00:10:42.291720",
+    "Dataset Size": "65.12 MB"
+}

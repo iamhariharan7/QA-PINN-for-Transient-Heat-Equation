@@ -1,0 +1,27 @@
+{
+    "z_front": {
+        "type": "adiabatic"
+    },
+    "z_back": {
+        "type": "convective",
+        "h": 48.261412151124,
+        "T_inf": 288.0267942733794
+    },
+    "y_top": {
+        "type": "neumann",
+        "value": 218.11467143069808
+    },
+    "y_bottom": {
+        "type": "convective",
+        "h": 20.259737149092196,
+        "T_inf": 296.99002953880307
+    },
+    "x_left": {
+        "type": "neumann",
+        "value": -866.5824481226527
+    },
+    "x_right": {
+        "type": "dirichlet",
+        "value": 281.359475643385
+    }
+}

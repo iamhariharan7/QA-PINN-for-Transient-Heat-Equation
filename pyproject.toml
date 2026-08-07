@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cfd-pinn-framework"
+version = "1.0.0"
+description = "A research-grade CFD dataset generation and PINN training framework."
+authors = [
+  { name="CFD Researcher" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pandas",
+    "h5py",
+    "pyyaml",
+    "tqdm",
+    "torch",
+    "pyarrow",
+    "psutil"
+]
+

@@ -1,0 +1,26 @@
+{
+    "z_front": {
+        "type": "neumann",
+        "value": 784.7574446376577
+    },
+    "z_back": {
+        "type": "dirichlet",
+        "value": 331.0796044740899
+    },
+    "y_top": {
+        "type": "dirichlet",
+        "value": 294.71653381333033
+    },
+    "y_bottom": {
+        "type": "neumann",
+        "value": 265.74910215798855
+    },
+    "x_left": {
+        "type": "dirichlet",
+        "value": 362.4822807835379
+    },
+    "x_right": {
+        "type": "dirichlet",
+        "value": 278.9671315587941
+    }
+}

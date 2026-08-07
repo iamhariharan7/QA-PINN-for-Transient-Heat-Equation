@@ -1,0 +1,38 @@
+{
+    "simulation_id": "Simulation_000002",
+    "uuid": "d1b9765a-a686-415e-b00d-6e458b38dbc9",
+    "material": "Mild Steel",
+    "chemical_symbol": "Fe-C",
+    "dimension": 1,
+    "geometry": "Line",
+    "grid_resolution": "155",
+    "mesh_size": "155",
+    "solver_type": "FDM (Explicit FTCS)",
+    "boundary_conditions": {
+        "left": {
+            "type": "neumann",
+            "value": 350.0973027631687
+        },
+        "right": {
+            "type": "neumann",
+            "value": -16.23332214063919
+        }
+    },
+    "initial_temperature": 337.4693961009142,
+    "ambient_temperature": 298.15,
+    "heat_source_config": {
+        "type": "point",
+        "power": 1098.509484062543
+    },
+    "thermal_conductivity": 45.0,
+    "density": 7850.0,
+    "specific_heat_capacity": 473.0,
+    "thermal_diffusivity": 1.2e-05,
+    "simulation_time": 29.57527975261548,
+    "time_step": 0.23105687306730843,
+    "random_seed": 596173,
+    "generation_timestamp": "2026-08-06T13:39:27.715057",
+    "software_version": "1.2.0",
+    "validation_status": "PASS",
+    "quality_score": 100
+}

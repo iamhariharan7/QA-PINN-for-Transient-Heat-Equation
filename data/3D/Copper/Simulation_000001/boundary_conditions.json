@@ -1,0 +1,25 @@
+{
+    "z_front": {
+        "type": "neumann",
+        "value": 713.3743967618291
+    },
+    "z_back": {
+        "type": "adiabatic"
+    },
+    "y_top": {
+        "type": "neumann",
+        "value": -174.67581198085918
+    },
+    "y_bottom": {
+        "type": "dirichlet",
+        "value": 308.1551593758573
+    },
+    "x_left": {
+        "type": "neumann",
+        "value": -3.6735484754641448
+    },
+    "x_right": {
+        "type": "dirichlet",
+        "value": 326.7812527419862
+    }
+}
