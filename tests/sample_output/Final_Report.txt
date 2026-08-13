@@ -1,0 +1,131 @@
+================================================================================
+Final Thermal Benchmark Report - Material: Tungsten
+================================================================================
+
+Material Properties:
+  - Thermal Conductivity (k) : 173.0 W/(m K)
+  - Thermal Diffusivity (alpha): 6.8e-05 m^2/s
+  - Density (rho)            : 19250.0 kg/m^3
+  - Specific Heat (Cp)       : 132.0 J/(kg K)
+  - Application              : ['Filaments', 'High-temperature components']
+
+================================================================================
+ 1D SIMULATION RESULTS
+================================================================================
+
+Method: CFD
+------------------------------
+  RMSE                : 0.0171202
+  MAE                 : 0.00692393
+  Max_Absolute_Error  : 0.0581441
+  Relative_L2_Error   : 5.35505e-05
+  PDE_Residual        : 0.00692671
+  PDE_Residual_Std    : 0.0408369
+  Parameters          : 0
+  Memory_MB           : 0
+  Unseen_RMSE         : 0
+
+Method: PINN
+------------------------------
+  RMSE                : 1.24456
+  MAE                 : 0.563753
+  Max_Absolute_Error  : 11.8918
+  Relative_L2_Error   : 0.00389288
+  PDE_Residual        : 0.0143786
+  PDE_Residual_Std    : 0.0609165
+  Parameters          : 66561
+  Memory_MB           : 0.25391
+  Unseen_RMSE         : 0.681594
+
+Method: QA-PINN
+------------------------------
+  RMSE                : 12.888
+  MAE                 : 10.1282
+  Max_Absolute_Error  : 102.167
+  Relative_L2_Error   : 0.0403124
+  PDE_Residual        : 0.136404
+  PDE_Residual_Std    : 0.104583
+  Parameters          : 217
+  Memory_MB           : 0.000827789
+  Unseen_RMSE         : 1.57356
+
+================================================================================
+ 2D SIMULATION RESULTS
+================================================================================
+
+Method: CFD
+------------------------------
+  RMSE                : 269.162
+  MAE                 : 170.934
+  Max_Absolute_Error  : 826.852
+  Relative_L2_Error   : 0.733929
+  PDE_Residual        : 6.51826
+  PDE_Residual_Std    : 2.05657
+  Parameters          : 0
+  Memory_MB           : 0
+  Unseen_RMSE         : 0
+
+Method: PINN
+------------------------------
+  RMSE                : 37.902
+  MAE                 : 20.2784
+  Max_Absolute_Error  : 99.5172
+  Relative_L2_Error   : 0.103348
+  PDE_Residual        : 0.0546417
+  PDE_Residual_Std    : 0.0352835
+  Parameters          : 16961
+  Memory_MB           : 0.0647011
+  Unseen_RMSE         : 0.665559
+
+Method: QA-PINN
+------------------------------
+  RMSE                : 65.1881
+  MAE                 : 52.1592
+  Max_Absolute_Error  : 151.135
+  Relative_L2_Error   : 0.177749
+  PDE_Residual        : 0.426579
+  PDE_Residual_Std    : 0.538681
+  Parameters          : 221
+  Memory_MB           : 0.000843048
+  Unseen_RMSE         : 0.760213
+
+================================================================================
+ 3D SIMULATION RESULTS
+================================================================================
+
+Method: CFD
+------------------------------
+  RMSE                : 0.237177
+  MAE                 : 0.0727274
+  Max_Absolute_Error  : 2.3159
+  Relative_L2_Error   : 0.000784243
+  PDE_Residual        : 2.5283e-15
+  PDE_Residual_Std    : 1.77307e-15
+  Parameters          : 0
+  Memory_MB           : 0
+  Unseen_RMSE         : 0
+
+Method: PINN
+------------------------------
+  RMSE                : 1.17251
+  MAE                 : 0.342725
+  Max_Absolute_Error  : 22.5271
+  Relative_L2_Error   : 0.00387698
+  PDE_Residual        : 0.00874747
+  PDE_Residual_Std    : 0.0183223
+  Parameters          : 26401
+  Memory_MB           : 0.100712
+  Unseen_RMSE         : 0.27734
+
+Method: QA-PINN
+------------------------------
+  RMSE                : 9.13405
+  MAE                 : 2.67631
+  Max_Absolute_Error  : 124.429
+  Relative_L2_Error   : 0.0302023
+  PDE_Residual        : 0.0179459
+  PDE_Residual_Std    : 0.00286074
+  Parameters          : 225
+  Memory_MB           : 0.000858307
+  Unseen_RMSE         : 0.298226
+
